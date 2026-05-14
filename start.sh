@@ -17,4 +17,4 @@ if [ ! -f token.json ]; then
 fi
 
 echo "Starting Plaude Code..."
-python src/watcher.py
+python3 -m src.watcher

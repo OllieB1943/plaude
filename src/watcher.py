@@ -8,7 +8,7 @@ from pathlib import Path
 
 from flask import Flask, jsonify, request
 
-from src import drive, detector, tunnel, bridge
+from . import drive, detector, tunnel, bridge
 
 logging.basicConfig(
     level=logging.INFO,
@@ -26,6 +26,7 @@ _ids_lock = threading.Lock()
 _file_count: int = 0
 _channel_id: str | None = None
 _channel_expiry: int = 0
+_changes_page_token: str | None = None
 
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -37,9 +38,7 @@ def load_config() -> dict:
 
 # ── Drive webhook registration ────────────────────────────────────────────────
 
-def register_webhook(folder_id: str, public_url: str) -> None:
-    global _channel_id, _channel_expiry
-    import uuid
+def _get_drive_service():
     from googleapiclient.discovery import build
     from google.auth.transport.requests import Request
     from google.oauth2.credentials import Credentials
@@ -50,14 +49,25 @@ def register_webhook(folder_id: str, public_url: str) -> None:
     )
     if creds.expired and creds.refresh_token:
         creds.refresh(Request())
+    return build("drive", "v3", credentials=creds)
 
-    service = build("drive", "v3", credentials=creds)
-    channel_id = str(uuid.uuid4())
+
+def register_webhook(folder_id: str, public_url: str) -> None:
+    global _channel_id, _channel_expiry, _changes_page_token
+    import uuid
+
     try:
+        service = _get_drive_service()
+
+        # Get a start page token for the changes feed
+        token_resp = service.changes().getStartPageToken().execute()
+        _changes_page_token = token_resp.get("startPageToken")
+
+        channel_id = str(uuid.uuid4())
         resp = (
-            service.files()
+            service.changes()
             .watch(
-                fileId=folder_id,
+                pageToken=_changes_page_token,
                 body={
                     "id": channel_id,
                     "type": "web_hook",
@@ -68,7 +78,7 @@ def register_webhook(folder_id: str, public_url: str) -> None:
         )
         _channel_id = channel_id
         _channel_expiry = int(resp.get("expiration", 0)) // 1000  # ms → s
-        logger.info(f"Drive webhook registered (channel {channel_id})")
+        logger.info(f"Drive changes webhook registered (channel {channel_id})")
     except Exception as e:
         logger.warning(f"Could not register Drive webhook (will rely on polling): {e}")
 
