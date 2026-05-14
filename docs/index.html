@@ -394,8 +394,24 @@
       <div class="step">
         <div class="step-num">4</div>
         <div class="step-content">
-          <h3>Enable Plaud → Drive sync</h3>
-          <p>In the Plaud app, turn on Google Drive sync and point it to the same folder you configured above. Check the <a href="https://www.plaud.ai/pages/help" target="_blank" rel="noopener">Plaud help docs</a> for where the setting lives.</p>
+          <h3>Connect Plaud to Google Drive</h3>
+          <p>This is how Plaude receives your transcripts. Follow these steps in the Plaud mobile app:</p>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-top:4px">
+            <ol style="font-size:13.5px;color:var(--muted);line-height:2;padding-left:18px">
+              <li>Open the <strong style="color:var(--text)">Plaud app</strong> on your phone</li>
+              <li>Tap your <strong style="color:var(--text)">profile icon</strong> or the <strong style="color:var(--text)">Settings</strong> gear (top corner of the home screen)</li>
+              <li>Find <strong style="color:var(--text)">Cloud Sync</strong>, <strong style="color:var(--text)">Backup</strong>, or <strong style="color:var(--text)">Integrations</strong></li>
+              <li>Tap <strong style="color:var(--text)">Google Drive</strong> and sign in with the same Google account you used during setup</li>
+              <li>Plaud will create a folder in your Drive — usually called <code style="font-family:monospace;font-size:12px;color:var(--text)">Plaud</code> or <code style="font-family:monospace;font-size:12px;color:var(--text)">PLAUD</code></li>
+              <li>Open <strong style="color:var(--text)">Google Drive</strong> on your computer and navigate to that folder</li>
+              <li>Copy the <strong style="color:var(--text)">folder ID</strong> from the URL bar:</li>
+            </ol>
+            <pre style="margin-top:10px;font-size:12px">https://drive.google.com/drive/folders/<span style="color:var(--green)">THIS_PART_IS_YOUR_FOLDER_ID</span></pre>
+            <p style="margin-top:12px;font-size:13px;color:var(--muted)">Paste this ID when <code style="font-family:monospace;font-size:12px;color:var(--text)">python3 setup.py</code> asks for your Drive folder. Plaude will watch this folder for new transcripts.</p>
+          </div>
+          <div style="margin-top:12px;background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--muted)">
+            <strong style="color:var(--green)">Tip:</strong> Make sure sync is set to <strong style="color:var(--text)">automatic</strong> in the Plaud app so transcripts upload as soon as a recording finishes — no manual action needed.
+          </div>
         </div>
       </div>
 
