@@ -117,12 +117,7 @@ def check_for_new_files() -> None:
         if triggered:
             project_dir = detector.find_project_dir(text, _config["projects_root"])
             if project_dir:
-                bridge.write_claude_md(text, name, project_dir)
-                if _config.get("auto_launch", True):
-                    try:
-                        bridge.launch_claude(project_dir, _config.get("claude_cmd", "claude"))
-                    except RuntimeError as e:
-                        logger.error(e)
+                bridge.dispatch(text, name, project_dir, _config)
             else:
                 bridge.write_fallback_md(text, name)
         else:

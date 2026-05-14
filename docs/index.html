@@ -134,20 +134,20 @@
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 14px 18px;
-    display: flex; align-items: flex-start; gap: 14px;
-    font-size: 14.5px;
+    padding: 16px 20px;
+    display: flex; align-items: flex-start; gap: 16px;
+    font-size: 15px;
   }
   .prereq-list .idx {
     flex-shrink: 0;
     font-family: "SF Mono", "Fira Code", monospace;
-    font-size: 12px;
+    font-size: 13px;
     color: var(--green);
     padding-top: 2px;
-    min-width: 20px;
+    min-width: 22px;
   }
-  .prereq-list .label { font-weight: 600; }
-  .prereq-list .sub { margin-top: 2px; font-size: 13px; color: var(--muted); }
+  .prereq-list .label { font-weight: 700; font-size: 15px; }
+  .prereq-list .sub { margin-top: 4px; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
 
   /* ── Steps ── */
   .steps { display: flex; flex-direction: column; gap: 0; }
@@ -321,7 +321,11 @@
         <div class="idx">01</div>
         <div>
           <div class="label">Python 3.10+</div>
-          <div class="sub">Check: <code style="font-family:monospace;font-size:12px">python3 --version</code></div>
+          <div class="sub">
+            Check: <code style="font-family:monospace;font-size:13px">python3 --version</code><br>
+            Install (macOS): <code style="font-family:monospace;font-size:13px">brew install python3</code><br>
+            Install (Windows): <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org/downloads</a>
+          </div>
         </div>
       </li>
       <li>
@@ -424,8 +428,46 @@
       <div class="flow-card">
         <div class="icon">⚡️</div>
         <strong>Claude executes</strong>
-        <span>CLAUDE.md written, CLI launched</span>
+        <span>Via CLI or Cowork — your choice</span>
       </div>
+    </div>
+  </section>
+
+  <!-- ── Launchers ── -->
+  <section id="launchers">
+    <h2>Choose your launcher</h2>
+    <p style="color:var(--muted);font-size:15px;margin-bottom:24px">Set <code style="font-family:monospace;background:#000;border:1px solid var(--border);padding:2px 8px;border-radius:4px;font-size:13px">"launcher"</code> in <code style="font-family:monospace;background:#000;border:1px solid var(--border);padding:2px 8px;border-radius:4px;font-size:13px">config.json</code> to control how Claude is triggered.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+        <div style="font-size:24px;margin-bottom:10px">💻</div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:6px">CLI <span style="background:rgba(0,229,160,0.1);color:var(--green);border-radius:100px;padding:2px 10px;font-size:11px;margin-left:6px">default</span></div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Writes <code style="font-family:monospace;font-size:12px;color:var(--text)">CLAUDE.md</code> into the matched project directory and launches Claude Code in a terminal.</div>
+        <pre style="margin-top:14px;font-size:12px">"launcher": "cli"</pre>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+        <div style="font-size:24px;margin-bottom:10px">🤖</div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:6px">Cowork</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Drops a task file into an inbox folder that Claude Cowork watches. The desktop app picks it up and executes automatically.</div>
+        <pre style="margin-top:14px;font-size:12px">"launcher": "cowork"</pre>
+      </div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px">
+      <div style="font-size:22px">⚡️</div>
+      <div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:4px">Both</div>
+        <div style="font-size:13.5px;color:var(--muted)">Triggers CLI and Cowork simultaneously. Set <code style="font-family:monospace;font-size:12px;color:var(--text)">"launcher": "both"</code> in config.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+      <div style="font-weight:700;font-size:14px;margin-bottom:10px">Setting up Cowork</div>
+      <ol style="font-size:13.5px;color:var(--muted);line-height:1.9;padding-left:18px">
+        <li>Set <code style="font-family:monospace;font-size:12px;color:var(--text)">"launcher": "cowork"</code> and <code style="font-family:monospace;font-size:12px;color:var(--text)">"cowork_inbox": "~/claude-inbox"</code> in config.json</li>
+        <li>Open the Claude desktop app and start a Cowork session</li>
+        <li>Point it at <code style="font-family:monospace;font-size:12px;color:var(--text)">~/claude-inbox</code> and tell it: <em>"When a new .md file appears here, read it and execute the instructions inside it"</em></li>
+        <li>Leave Cowork running — it will automatically handle every transcript Plaude Code drops in</li>
+      </ol>
     </div>
   </section>
 

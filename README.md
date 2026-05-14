@@ -59,6 +59,22 @@ Plaude Code scans the transcript for folder names that exist in your `projects_r
 
 If nothing matches, a fallback `CLAUDE.md` is written to `~/Desktop/plaude-unmatched/` — move it to the right project and run `claude` manually.
 
+## Launchers
+
+Plaude Code supports two ways to hand off to Claude. Set `launcher` in `config.json`:
+
+| Value | What happens |
+|-------|-------------|
+| `"cli"` | Writes `CLAUDE.md` to the project directory and launches Claude Code CLI (default) |
+| `"cowork"` | Drops a task file into `cowork_inbox` for Claude Cowork to pick up automatically |
+| `"both"` | Does both simultaneously |
+
+**Using Cowork:**
+1. Set `"launcher": "cowork"` (or `"both"`) in `config.json`
+2. Set `"cowork_inbox"` to a folder Claude Cowork is watching (default: `~/claude-inbox`)
+3. In the Claude desktop app, point a Cowork session at that inbox folder and tell it: *"When a new .md file appears here, read it and execute the instructions inside it"*
+4. Leave Cowork running — it will automatically pick up and act on every transcript Plaude Code drops in
+
 ## Config
 
 Edit `config.json` to customise behaviour:
@@ -70,7 +86,9 @@ Edit `config.json` to customise behaviour:
   "trigger_phrases": ["send to claude", "..."],
   "claude_cmd": "claude",
   "auto_launch": true,
-  "poll_interval_seconds": 10
+  "poll_interval_seconds": 10,
+  "launcher": "cli",
+  "cowork_inbox": "~/claude-inbox"
 }
 ```
 

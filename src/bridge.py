@@ -54,13 +54,72 @@ def write_claude_md(
     return out
 
 
-def launch_claude(project_dir: Path, claude_cmd: str = "claude") -> None:
+def write_cowork_md(
+    transcript_text: str, source_filename: str, project_dir: Path, cowork_inbox: str
+) -> Path:
+    """Write a CLAUDE.md into the Cowork inbox folder so Cowork picks it up."""
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    ts_slug = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+
+    inbox = Path(cowork_inbox).expanduser()
+    inbox.mkdir(parents=True, exist_ok=True)
+
+    # Name the file after the project so Cowork knows which dir to work in
+    project_name = project_dir.name if project_dir else "unknown"
+    out = inbox / f"{project_name}-{ts_slug}.md"
+
+    content = f"# Project: {project_dir}\n\n" + _TEMPLATE.format(
+        source_filename=source_filename,
+        timestamp=timestamp,
+        project_dir=project_dir,
+        transcript_text=transcript_text,
+    )
+    out.write_text(content, encoding="utf-8")
+    logger.info(f"✓ Cowork task written to {out}")
+    return out
+
+
+def launch_cli(project_dir: Path, claude_cmd: str = "claude") -> None:
     if not shutil.which(claude_cmd):
         raise RuntimeError(
             f"'{claude_cmd}' not found on PATH. Install Claude Code CLI first."
         )
     subprocess.Popen([claude_cmd], cwd=str(project_dir))
-    logger.info(f"✓ Claude Code launched in {project_dir}")
+    logger.info(f"✓ Claude Code CLI launched in {project_dir}")
+
+
+# Keep old name as alias so nothing else breaks
+launch_claude = launch_cli
+
+
+def dispatch(
+    transcript_text: str,
+    source_filename: str,
+    project_dir: Path,
+    config: dict,
+) -> None:
+    """
+    Central dispatcher. Respects config['launcher']:
+      'cli'    — write CLAUDE.md to project dir + launch CLI
+      'cowork' — write task file to cowork_inbox for Cowork to pick up
+      'both'   — do both
+    """
+    launcher = config.get("launcher", "cli")
+    cowork_inbox = config.get("cowork_inbox", "~/claude-inbox")
+    claude_cmd = config.get("claude_cmd", "claude")
+    auto_launch = config.get("auto_launch", True)
+
+    if launcher in ("cli", "both"):
+        write_claude_md(transcript_text, source_filename, project_dir)
+        if auto_launch:
+            try:
+                launch_cli(project_dir, claude_cmd)
+            except RuntimeError as e:
+                logger.error(e)
+
+    if launcher in ("cowork", "both"):
+        write_cowork_md(transcript_text, source_filename, project_dir, cowork_inbox)
+        logger.info("✓ Task dropped in Cowork inbox — Claude Cowork will pick it up")
 
 
 def write_fallback_md(transcript_text: str, source_filename: str) -> Path:

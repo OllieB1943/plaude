@@ -18,5 +18,7 @@
   "claude_cmd": "claude",
   "auto_launch": true,
   "poll_interval_seconds": 10,
-  "processed_ids_file": "~/.plaude_processed.json"
+  "processed_ids_file": "~/.plaude_processed.json",
+  "launcher": "cli",
+  "cowork_inbox": "~/claude-inbox"
 }
