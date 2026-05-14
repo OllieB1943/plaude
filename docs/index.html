@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plaude Code</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #0D0D0D;
+    --surface: #161616;
+    --border:  #2A2A2A;
+    --text:    #EBEBEB;
+    --muted:   #666;
+    --green:   #00E5A0;
+    --green2:  #00C48A;
+    --radius:  10px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  a { color: var(--green); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Nav ── */
+  nav {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(13,13,13,0.9);
+    backdrop-filter: blur(10px);
+  }
+  nav .inner {
+    max-width: 740px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-weight: 800; font-size: 15px; letter-spacing: -0.3px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .nav-logo .dot-green {
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50%      { opacity: 0.3; }
+  }
+  .nav-gh {
+    font-size: 13px; color: var(--muted);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-gh:hover { color: var(--text); }
+  .nav-gh svg { width: 16px; height: 16px; fill: currentColor; }
+
+  /* ── Hero ── */
+  .hero { padding: 80px 0 60px; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,229,160,0.1);
+    border: 1px solid rgba(0,229,160,0.25);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 12.5px;
+    color: var(--green);
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+  .hero h1 {
+    font-size: clamp(44px, 8vw, 72px);
+    font-weight: 900;
+    letter-spacing: -3px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .hero h1 em { color: var(--green); font-style: normal; }
+  .hero p {
+    margin-top: 20px;
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 460px;
+    line-height: 1.55;
+  }
+  .hero-cta {
+    margin-top: 36px;
+    display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--green);
+    color: #000;
+    padding: 12px 26px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 14px;
+    transition: background 0.15s, transform 0.1s;
+  }
+  .btn:hover { background: var(--green2); text-decoration: none; transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-block;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 12px 26px;
+    border-radius: 100px;
+    font-size: 14px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-ghost:hover { border-color: var(--muted); color: var(--text); text-decoration: none; }
+
+  /* ── Section ── */
+  section { padding: 56px 0; border-top: 1px solid var(--border); }
+  section h2 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 28px;
+  }
+
+  /* ── Prereqs ── */
+  .prereq-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .prereq-list li {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    display: flex; align-items: flex-start; gap: 14px;
+    font-size: 14.5px;
+  }
+  .prereq-list .idx {
+    flex-shrink: 0;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 12px;
+    color: var(--green);
+    padding-top: 2px;
+    min-width: 20px;
+  }
+  .prereq-list .label { font-weight: 600; }
+  .prereq-list .sub { margin-top: 2px; font-size: 13px; color: var(--muted); }
+
+  /* ── Steps ── */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex; gap: 20px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0; width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 12px; color: var(--muted);
+    margin-top: 2px;
+  }
+  .step-content h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .step-content p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+  .step-content p:last-child { margin-bottom: 0; }
+
+  /* ── Code ── */
+  pre {
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    overflow-x: auto;
+    position: relative;
+    color: #ccc;
+  }
+  pre .prompt { color: var(--green); user-select: none; }
+  .copy-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 6px;
+    padding: 3px 10px; font-size: 11px;
+    cursor: pointer; transition: color 0.15s, border-color 0.15s;
+    font-family: inherit;
+  }
+  .copy-btn:hover { color: var(--text); border-color: var(--muted); }
+
+  /* ── Flow ── */
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr 32px 1fr 32px 1fr;
+    gap: 8px; align-items: center;
+  }
+  .flow-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px 16px;
+    text-align: center;
+  }
+  .flow-card .icon { font-size: 26px; margin-bottom: 10px; }
+  .flow-card strong { display: block; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .flow-card span { font-size: 12px; color: var(--muted); }
+  .flow-arrow { text-align: center; color: var(--muted); font-size: 18px; }
+
+  @media (max-width: 560px) {
+    .flow { grid-template-columns: 1fr; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+
+  /* ── Pills ── */
+  .pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 13px;
+    font-family: "SF Mono", "Fira Code", monospace;
+    color: var(--text);
+  }
+  .pill.catch {
+    background: rgba(0,229,160,0.1);
+    border-color: rgba(0,229,160,0.3);
+    color: var(--green);
+  }
+
+  /* ── FAQ ── */
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  summary {
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 14.5px;
+    cursor: pointer;
+    list-style: none;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; font-size: 18px; color: var(--muted); }
+  details[open] summary::after { content: "−"; }
+  .faq-body {
+    padding: 0 20px 16px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .faq-body code {
+    background: #000;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 12.5px;
+    color: var(--text);
+  }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <div class="nav-logo">
+      <span class="dot-green"></span>
+      Plaude Code
+    </div>
+    <a href="https://github.com/OllieB1943/plaude-code" target="_blank" rel="noopener" class="nav-gh">
+      <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      OllieB1943
+    </a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ── Hero ── -->
+  <div class="hero">
+    <div class="hero-badge">
+      <span class="dot-green" style="animation:pulse 2s infinite"></span>
+      v1.0 — now watching
+    </div>
+    <h1>Plaude<br><em>Code</em></h1>
+    <p>Voice-to-Claude automation. Say it. It builds it.</p>
+    <div class="hero-cta">
+      <a href="#install" class="btn">Get started</a>
+      <a href="https://github.com/OllieB1943/plaude-code" target="_blank" rel="noopener" class="btn-ghost">View on GitHub</a>
+    </div>
+  </div>
+
+  <!-- ── Prerequisites ── -->
+  <section id="prereqs">
+    <h2>What you need</h2>
+    <ul class="prereq-list">
+      <li>
+        <div class="idx">01</div>
+        <div>
+          <div class="label">Python 3.10+</div>
+          <div class="sub">Check: <code style="font-family:monospace;font-size:12px">python3 --version</code></div>
+        </div>
+      </li>
+      <li>
+        <div class="idx">02</div>
+        <div>
+          <div class="label">Claude Code CLI</div>
+          <div class="sub"><code style="font-family:monospace;font-size:12px">npm install -g @anthropic-ai/claude-code</code></div>
+        </div>
+      </li>
+      <li>
+        <div class="idx">03</div>
+        <div>
+          <div class="label">cloudflared</div>
+          <div class="sub">macOS: <code style="font-family:monospace;font-size:12px">brew install cloudflare/cloudflare/cloudflared</code> &nbsp;·&nbsp; Windows: <code style="font-family:monospace;font-size:12px">winget install Cloudflare.cloudflared</code></div>
+        </div>
+      </li>
+      <li>
+        <div class="idx">04</div>
+        <div>
+          <div class="label">A Google account</div>
+          <div class="sub">For Drive API access</div>
+        </div>
+      </li>
+      <li>
+        <div class="idx">05</div>
+        <div>
+          <div class="label">A Plaud device with Google Drive sync on</div>
+          <div class="sub">Transcripts must auto-sync to a Drive folder</div>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ── Install ── -->
+  <section id="install">
+    <h2>Installation</h2>
+    <div class="steps">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Clone the repo</h3>
+          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>git clone https://github.com/OllieB1943/plaude-code.git
+<span class="prompt">$ </span>cd plaude-code</pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Install Python deps</h3>
+          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>pip install -r requirements.txt</pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Run the setup wizard</h3>
+          <p>Handles Google OAuth, folder selection, and config in one shot.</p>
+          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>python setup.py</pre>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <h3>Enable Plaud → Drive sync</h3>
+          <p>In the Plaud app, turn on Google Drive sync and point it to the same folder you configured above. Check the <a href="https://www.plaud.ai/pages/help" target="_blank" rel="noopener">Plaud help docs</a> for where the setting lives.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-content">
+          <h3>Start the bridge</h3>
+          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>./start.sh</pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── How it works ── -->
+  <section id="how">
+    <h2>How it works</h2>
+    <div class="flow">
+      <div class="flow-card">
+        <div class="icon">🎙</div>
+        <strong>Record on Plaud</strong>
+        <span>Speak your instructions naturally</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-card">
+        <div class="icon">💬</div>
+        <strong>Say "send to claude"</strong>
+        <span>Trigger phrase detected automatically</span>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-card">
+        <div class="icon">⚡️</div>
+        <strong>Claude executes</strong>
+        <span>CLAUDE.md written, CLI launched</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Triggers ── -->
+  <section id="triggers">
+    <h2>Trigger phrases</h2>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:18px">Any of these in your recording will kick it off. Case-insensitive.</p>
+    <div class="pill-grid">
+      <span class="pill">send to claude</span>
+      <span class="pill">send this to claude</span>
+      <span class="pill">claude should</span>
+      <span class="pill">claude execute</span>
+      <span class="pill">claude fix</span>
+      <span class="pill">claude finish</span>
+      <span class="pill">claude do this</span>
+      <span class="pill">want this to go to claude</span>
+      <span class="pill">go to claude</span>
+      <span class="pill">for claude</span>
+      <span class="pill">claude code this</span>
+      <span class="pill">claude handle</span>
+      <span class="pill catch">claude [any verb] →</span>
+    </div>
+    <p style="margin-top:14px;font-size:13px;color:var(--muted)">The <span style="background:rgba(0,229,160,0.15);color:var(--green);border-radius:100px;padding:2px 10px;font-size:12px">catch-all</span> matches anything starting with "claude" followed by a word — "claude refactor this", "claude clean up the tests", etc.</p>
+  </section>
+
+  <!-- ── Troubleshooting ── -->
+  <section id="troubleshoot">
+    <h2>Troubleshooting</h2>
+
+    <details>
+      <summary>cloudflared not found</summary>
+      <div class="faq-body">
+        macOS: <code>brew install cloudflare/cloudflare/cloudflared</code><br>
+        Windows: <code>winget install Cloudflare.cloudflared</code><br><br>
+        Then re-run <code>./start.sh</code>.
+      </div>
+    </details>
+
+    <details>
+      <summary>Google auth failed</summary>
+      <div class="faq-body">
+        Delete <code>token.json</code> and re-run <code>python setup.py</code>. Make sure you enabled the <strong>Google Drive API</strong> in the Google Cloud Console and that your OAuth credentials are for a <strong>Desktop</strong> app, not a web app.
+      </div>
+    </details>
+
+    <details>
+      <summary>Project directory not detected</summary>
+      <div class="faq-body">
+        The bridge looks for your folder names inside the transcript. If the project name isn't mentioned, try saying <em>"working in my-project"</em> or <em>"in the api-service repo"</em>.<br><br>
+        If nothing matches, a fallback <code>CLAUDE.md</code> drops to <code>~/Desktop/plaude-unmatched/</code> — just move it to the right project and run <code>claude</code>.
+      </div>
+    </details>
+
+    <details>
+      <summary>claude command not found</summary>
+      <div class="faq-body">
+        Install the CLI: <code>npm install -g @anthropic-ai/claude-code</code><br><br>
+        Verify with <code>which claude</code>. If it's still missing, set the full path in <code>config.json</code> under the <code>claude_cmd</code> key.
+      </div>
+    </details>
+
+  </section>
+
+</div>
+
+<footer>
+  <div class="container">
+    Made by <a href="https://github.com/OllieB1943" target="_blank" rel="noopener">OllieB1943</a>
+    &nbsp;·&nbsp;
+    <a href="https://github.com/OllieB1943/plaude-code" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</footer>
+
+<script>
+function copy(btn) {
+  const pre = btn.parentElement;
+  const text = [...pre.childNodes]
+    .filter(n => n.nodeType === 3 || (n.nodeType === 1 && !n.classList.contains('copy-btn') && !n.classList.contains('prompt')))
+    .map(n => n.textContent)
+    .join('')
+    .trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1800);
+  });
+}
+</script>
+
+</body>
+</html>

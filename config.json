@@ -1,0 +1,22 @@
+{
+  "drive_folder_id": "",
+  "projects_root": "~/projects",
+  "trigger_phrases": [
+    "send to claude",
+    "send this to claude",
+    "claude should",
+    "claude execute",
+    "claude fix",
+    "claude finish",
+    "claude do this",
+    "want this to go to claude",
+    "go to claude",
+    "for claude",
+    "claude code this",
+    "claude handle"
+  ],
+  "claude_cmd": "claude",
+  "auto_launch": true,
+  "poll_interval_seconds": 10,
+  "processed_ids_file": "~/.plaude_processed.json"
+}
