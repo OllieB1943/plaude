@@ -1,4 +1,4 @@
-# Plaude Code
+# Plaude
 
 Voice-to-Claude automation. Record on Plaud, say "send to claude", and Claude Code executes your instructions automatically.
 
@@ -7,7 +7,7 @@ Voice-to-Claude automation. Record on Plaud, say "send to claude", and Claude Co
 1. Record a voice memo on your Plaud device
 2. Say a trigger phrase like *"send to claude"* or *"claude fix this"*
 3. Plaud syncs the transcript to Google Drive
-4. Plaude Code detects the trigger, figures out which project you were talking about, writes a `CLAUDE.md` with your instructions, and launches Claude Code in that directory
+4. Plaude detects the trigger, figures out which project you were talking about, writes a `CLAUDE.md` with your instructions, and launches Claude Code in that directory
 
 ## Prerequisites
 
@@ -55,13 +55,13 @@ Say any of these in your recording:
 
 ## Project matching
 
-Plaude Code scans the transcript for folder names that exist in your `projects_root`. If your project is called `my-app`, just mention "my-app" in your recording and it'll match automatically.
+Plaude scans the transcript for folder names that exist in your `projects_root`. If your project is called `my-app`, just mention "my-app" in your recording and it'll match automatically.
 
 If nothing matches, a fallback `CLAUDE.md` is written to `~/Desktop/plaude-unmatched/` — move it to the right project and run `claude` manually.
 
 ## Launchers
 
-Plaude Code supports two ways to hand off to Claude. Set `launcher` in `config.json`:
+Plaude supports two ways to hand off to Claude. Set `launcher` in `config.json`:
 
 | Value | What happens |
 |-------|-------------|
@@ -73,7 +73,7 @@ Plaude Code supports two ways to hand off to Claude. Set `launcher` in `config.j
 1. Set `"launcher": "cowork"` (or `"both"`) in `config.json`
 2. Set `"cowork_inbox"` to a folder Claude Cowork is watching (default: `~/claude-inbox`)
 3. In the Claude desktop app, point a Cowork session at that inbox folder and tell it: *"When a new .md file appears here, read it and execute the instructions inside it"*
-4. Leave Cowork running — it will automatically pick up and act on every transcript Plaude Code drops in
+4. Leave Cowork running — it will automatically pick up and act on every transcript Plaude drops in
 
 ## Config
 

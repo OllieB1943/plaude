@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plaude Code</title>
+<title>Plaude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -47,16 +50,11 @@
   }
   .nav-logo {
     font-weight: 800; font-size: 15px; letter-spacing: -0.3px;
-    display: flex; align-items: center; gap: 8px;
   }
-  .nav-logo .dot-green {
-    width: 8px; height: 8px;
-    background: var(--green);
-    border-radius: 50%;
-  }
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50%      { opacity: 0.3; }
+  .nav-logo .serif-e {
+    font-family: "Playfair Display", serif;
+    font-weight: 900;
+    font-style: italic;
   }
   .nav-gh {
     font-size: 13px; color: var(--muted);
@@ -79,16 +77,21 @@
     font-weight: 500;
   }
   .hero h1 {
-    font-size: clamp(44px, 8vw, 72px);
+    font-size: clamp(56px, 10vw, 88px);
     font-weight: 900;
-    letter-spacing: -3px;
+    letter-spacing: -4px;
     line-height: 1;
     color: var(--text);
   }
-  .hero h1 em { color: var(--green); font-style: normal; }
+  .hero h1 .serif-e {
+    font-family: "Playfair Display", serif;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: -2px;
+  }
   .hero p {
-    margin-top: 20px;
-    font-size: 19px;
+    margin-top: 22px;
+    font-size: 20px;
     color: var(--muted);
     max-width: 460px;
     line-height: 1.55;
@@ -287,11 +290,8 @@
 
 <nav>
   <div class="inner">
-    <div class="nav-logo">
-      <span class="dot-green"></span>
-      Plaude Code
-    </div>
-    <a href="https://github.com/OllieB1943/plaude-code" target="_blank" rel="noopener" class="nav-gh">
+    <div class="nav-logo">Plaud<span class="serif-e">e</span></div>
+    <a href="https://github.com/OllieB1943/plaude" target="_blank" rel="noopener" class="nav-gh">
       <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
       OllieB1943
     </a>
@@ -302,14 +302,12 @@
 
   <!-- ── Hero ── -->
   <div class="hero">
-    <div class="hero-badge">
-      v1.0
-    </div>
-    <h1>Plaude<br><em>Code</em></h1>
-    <p>Voice-to-Claude automation. Say it. It builds it.</p>
+    <div class="hero-badge">v1.0</div>
+    <h1>Plaud<span class="serif-e">e</span></h1>
+    <p>Your voice, straight to Claude. Say it. Done.</p>
     <div class="hero-cta">
       <a href="#install" class="btn">Get started</a>
-      <a href="https://github.com/OllieB1943/plaude-code" target="_blank" rel="noopener" class="btn-ghost">View on GitHub</a>
+      <a href="https://github.com/OllieB1943/plaude" target="_blank" rel="noopener" class="btn-ghost">View on GitHub</a>
     </div>
   </div>
 
@@ -331,8 +329,11 @@
       <li>
         <div class="idx">02</div>
         <div>
-          <div class="label">Claude Code CLI</div>
-          <div class="sub"><code style="font-family:monospace;font-size:12px">npm install -g @anthropic-ai/claude-code</code></div>
+          <div class="label">Claude — CLI or desktop app</div>
+          <div class="sub">
+            CLI: <code style="font-family:monospace;font-size:12px">npm install -g @anthropic-ai/claude-code</code><br>
+            Desktop: <a href="https://claude.ai/download" target="_blank" rel="noopener">claude.ai/download</a> (for Cowork launcher)
+          </div>
         </div>
       </li>
       <li>
@@ -368,8 +369,8 @@
         <div class="step-num">1</div>
         <div class="step-content">
           <h3>Clone the repo</h3>
-          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>git clone https://github.com/OllieB1943/plaude-code.git
-<span class="prompt">$ </span>cd plaude-code</pre>
+          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>git clone https://github.com/OllieB1943/plaude.git
+<span class="prompt">$ </span>cd plaude</pre>
         </div>
       </div>
 
@@ -416,7 +417,7 @@
       <div class="flow-card">
         <div class="icon">🎙</div>
         <strong>Record on Plaud</strong>
-        <span>Speak your instructions naturally</span>
+        <span>Speak naturally — tasks, ideas, anything</span>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-card">
@@ -427,7 +428,7 @@
       <div class="flow-arrow">→</div>
       <div class="flow-card">
         <div class="icon">⚡️</div>
-        <strong>Claude executes</strong>
+        <strong>Claude takes over</strong>
         <span>Via CLI or Cowork — your choice</span>
       </div>
     </div>
@@ -442,13 +443,13 @@
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
         <div style="font-size:24px;margin-bottom:10px">💻</div>
         <div style="font-weight:700;font-size:15px;margin-bottom:6px">CLI <span style="background:rgba(0,229,160,0.1);color:var(--green);border-radius:100px;padding:2px 10px;font-size:11px;margin-left:6px">default</span></div>
-        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Writes <code style="font-family:monospace;font-size:12px;color:var(--text)">CLAUDE.md</code> into the matched project directory and launches Claude Code in a terminal.</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Writes a <code style="font-family:monospace;font-size:12px;color:var(--text)">CLAUDE.md</code> into the matched project directory and launches Claude Code in a terminal.</div>
         <pre style="margin-top:14px;font-size:12px">"launcher": "cli"</pre>
       </div>
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
         <div style="font-size:24px;margin-bottom:10px">🤖</div>
         <div style="font-weight:700;font-size:15px;margin-bottom:6px">Cowork</div>
-        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Drops a task file into an inbox folder that Claude Cowork watches. The desktop app picks it up and executes automatically.</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Drops a task file into an inbox folder that Claude Cowork watches. Works for anything — code, writing, planning, emails.</div>
         <pre style="margin-top:14px;font-size:12px">"launcher": "cowork"</pre>
       </div>
     </div>
@@ -466,7 +467,7 @@
         <li>Set <code style="font-family:monospace;font-size:12px;color:var(--text)">"launcher": "cowork"</code> and <code style="font-family:monospace;font-size:12px;color:var(--text)">"cowork_inbox": "~/claude-inbox"</code> in config.json</li>
         <li>Open the Claude desktop app and start a Cowork session</li>
         <li>Point it at <code style="font-family:monospace;font-size:12px;color:var(--text)">~/claude-inbox</code> and tell it: <em>"When a new .md file appears here, read it and execute the instructions inside it"</em></li>
-        <li>Leave Cowork running — it will automatically handle every transcript Plaude Code drops in</li>
+        <li>Leave Cowork running — it will automatically handle every transcript Plaude drops in</li>
       </ol>
     </div>
   </section>
@@ -474,23 +475,23 @@
   <!-- ── Triggers ── -->
   <section id="triggers">
     <h2>Trigger phrases</h2>
-    <p style="color:var(--muted);font-size:14px;margin-bottom:18px">Any of these in your recording will kick it off. Case-insensitive.</p>
+    <p style="color:var(--muted);font-size:14px;margin-bottom:18px">Say any of these in your recording. Works for code, writing, planning — anything Claude can do.</p>
     <div class="pill-grid">
       <span class="pill">send to claude</span>
       <span class="pill">send this to claude</span>
       <span class="pill">claude should</span>
-      <span class="pill">claude execute</span>
+      <span class="pill">claude handle</span>
       <span class="pill">claude fix</span>
-      <span class="pill">claude finish</span>
+      <span class="pill">claude draft</span>
+      <span class="pill">claude summarise</span>
+      <span class="pill">claude plan</span>
       <span class="pill">claude do this</span>
       <span class="pill">want this to go to claude</span>
       <span class="pill">go to claude</span>
       <span class="pill">for claude</span>
-      <span class="pill">claude code this</span>
-      <span class="pill">claude handle</span>
-      <span class="pill catch">claude [any verb] →</span>
+      <span class="pill catch">claude [anything] →</span>
     </div>
-    <p style="margin-top:14px;font-size:13px;color:var(--muted)">The <span style="background:rgba(0,229,160,0.15);color:var(--green);border-radius:100px;padding:2px 10px;font-size:12px">catch-all</span> matches anything starting with "claude" followed by a word — "claude refactor this", "claude clean up the tests", etc.</p>
+    <p style="margin-top:14px;font-size:13px;color:var(--muted)">The <span style="background:rgba(0,229,160,0.15);color:var(--green);border-radius:100px;padding:2px 10px;font-size:12px">catch-all</span> matches any phrase starting with "claude" followed by a word — "claude write me an email", "claude make a plan", "claude research this".</p>
   </section>
 
   <!-- ── Troubleshooting ── -->
@@ -509,15 +510,15 @@
     <details>
       <summary>Google auth failed</summary>
       <div class="faq-body">
-        Delete <code>token.json</code> and re-run <code>python setup.py</code>. Make sure you enabled the <strong>Google Drive API</strong> in the Google Cloud Console and that your OAuth credentials are for a <strong>Desktop</strong> app, not a web app.
+        Delete <code>token.json</code> and re-run <code>python setup.py</code>. Make sure you enabled the <strong>Google Drive API</strong> in Google Cloud Console and that your OAuth credentials are for a <strong>Desktop</strong> app, not a web app.
       </div>
     </details>
 
     <details>
       <summary>Project directory not detected</summary>
       <div class="faq-body">
-        The bridge looks for your folder names inside the transcript. If the project name isn't mentioned, try saying <em>"working in my-project"</em> or <em>"in the api-service repo"</em>.<br><br>
-        If nothing matches, a fallback <code>CLAUDE.md</code> drops to <code>~/Desktop/plaude-unmatched/</code> — just move it to the right project and run <code>claude</code>.
+        Plaude scans the transcript for folder names that exist in your <code>projects_root</code>. If the project name isn't mentioned, try saying <em>"working in my-project"</em> or <em>"in the api-service repo"</em>.<br><br>
+        If nothing matches, a fallback file drops to <code>~/Desktop/plaude-unmatched/</code>.
       </div>
     </details>
 
@@ -525,7 +526,7 @@
       <summary>claude command not found</summary>
       <div class="faq-body">
         Install the CLI: <code>npm install -g @anthropic-ai/claude-code</code><br><br>
-        Verify with <code>which claude</code>. If it's still missing, set the full path in <code>config.json</code> under the <code>claude_cmd</code> key.
+        Verify with <code>which claude</code>. Or switch to the Cowork launcher in <code>config.json</code> to use the desktop app instead.
       </div>
     </details>
 
@@ -537,7 +538,7 @@
   <div class="container">
     Made by <a href="https://github.com/OllieB1943" target="_blank" rel="noopener">OllieB1943</a>
     &nbsp;·&nbsp;
-    <a href="https://github.com/OllieB1943/plaude-code" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/OllieB1943/plaude" target="_blank" rel="noopener">GitHub</a>
   </div>
 </footer>
 
