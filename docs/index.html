@@ -521,17 +521,17 @@
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
         <div style="font-size:24px;margin-bottom:10px">💻</div>
         <div style="font-weight:700;font-size:15px;margin-bottom:6px">CLI <span style="background:rgba(0,229,160,0.1);color:var(--green);border-radius:100px;padding:2px 10px;font-size:11px;margin-left:6px">default</span></div>
-        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Writes a <code style="font-family:monospace;font-size:12px;color:var(--text)">CLAUDE.md</code> into the matched project directory and launches Claude Code in a terminal.</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Writes a <code style="font-family:monospace;font-size:12px;color:var(--text)">CLAUDE.md</code> into the matched project directory and launches Claude Code in a terminal. Best for coding tasks.</div>
         <pre style="margin-top:14px;font-size:12px">"launcher": "cli"</pre>
       </div>
       <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:24px">
         <div style="font-size:24px;margin-bottom:10px">🤖</div>
-        <div style="font-weight:700;font-size:15px;margin-bottom:6px">Cowork</div>
-        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Drops a task file into an inbox folder that Claude Cowork watches. Works for anything — code, writing, planning, emails.</div>
+        <div style="font-weight:700;font-size:15px;margin-bottom:6px">Cowork <span style="background:rgba(99,102,241,0.15);color:#a5b4fc;border-radius:100px;padding:2px 10px;font-size:11px;margin-left:6px">recommended</span></div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.6">Claude Cowork watches your Drive folder directly via the native Google Drive connector. Works for anything — code, writing, planning, emails.</div>
         <pre style="margin-top:14px;font-size:12px">"launcher": "cowork"</pre>
       </div>
     </div>
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px">
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;display:flex;align-items:center;gap:16px;margin-bottom:24px">
       <div style="font-size:22px">⚡️</div>
       <div>
         <div style="font-weight:700;font-size:15px;margin-bottom:4px">Both</div>
@@ -539,14 +539,78 @@
       </div>
     </div>
 
-    <div style="margin-top:20px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
-      <div style="font-weight:700;font-size:14px;margin-bottom:10px">Setting up Cowork</div>
-      <ol style="font-size:13.5px;color:var(--muted);line-height:1.9;padding-left:18px">
-        <li>Set <code style="font-family:monospace;font-size:12px;color:var(--text)">"launcher": "cowork"</code> and <code style="font-family:monospace;font-size:12px;color:var(--text)">"cowork_inbox": "~/claude-inbox"</code> in config.json</li>
-        <li>Open the Claude desktop app and start a Cowork session</li>
-        <li>Point it at <code style="font-family:monospace;font-size:12px;color:var(--text)">~/claude-inbox</code> and tell it: <em>"When a new .md file appears here, read it and execute the instructions inside it"</em></li>
-        <li>Leave Cowork running — it will automatically handle every transcript Plaude drops in</li>
-      </ol>
+    <!-- Cowork setup -->
+    <div style="border:1px solid rgba(99,102,241,0.35);border-radius:var(--radius);overflow:hidden">
+      <div style="background:rgba(99,102,241,0.12);border-bottom:1px solid rgba(99,102,241,0.25);padding:16px 22px;display:flex;align-items:center;gap:10px">
+        <span style="font-size:18px">🤖</span>
+        <div>
+          <div style="font-weight:700;font-size:15px">Setting up Claude Cowork with Google Drive</div>
+          <div style="font-size:12.5px;color:var(--muted);margin-top:2px">Use the native Google Drive connector — no local inbox needed</div>
+        </div>
+      </div>
+      <div style="padding:22px;display:flex;flex-direction:column;gap:16px">
+
+        <!-- Step 1 -->
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;color:#a5b4fc;font-weight:700">1</div>
+          <div>
+            <div style="font-weight:600;font-size:14px;margin-bottom:4px">Open the Claude desktop app and start a new Cowork session</div>
+            <div style="font-size:13px;color:var(--muted);line-height:1.6">In the Claude desktop app, click <strong style="color:var(--text)">Cowork</strong> in the sidebar and start a new session. Give it a name like <em>"Plaude automation"</em>.</div>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;color:#a5b4fc;font-weight:700">2</div>
+          <div>
+            <div style="font-weight:600;font-size:14px;margin-bottom:4px">Add the Google Drive connector</div>
+            <div style="font-size:13px;color:var(--muted);line-height:1.6">
+              In the Cowork session, click <strong style="color:var(--text)">+ Add connector</strong> → choose <strong style="color:var(--text)">Google Drive</strong>.<br>
+              Sign in with the same Google account your Plaud syncs to.<br>
+              Select the <strong style="color:var(--text)">Plaud folder</strong> (the one whose ID you copied during setup).
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;color:#a5b4fc;font-weight:700">3</div>
+          <div>
+            <div style="font-weight:600;font-size:14px;margin-bottom:4px">Give Cowork its standing instructions</div>
+            <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px">Paste this as the session's initial message — Cowork will follow it automatically every time a new transcript lands in the folder:</div>
+            <div style="position:relative">
+              <button onclick="copyCowork(this)" style="position:absolute;top:10px;right:10px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:inherit">Copy</button>
+              <pre style="font-size:12.5px;line-height:1.75;white-space:pre-wrap" id="cowork-prompt">Watch my Google Drive Plaud folder for new files. Whenever a new transcript appears:
+
+1. Read the full transcript text
+2. Check if it contains a trigger phrase like "send to claude", "claude fix", "claude draft", "claude plan", or anything starting with "claude [verb]"
+3. If a trigger is found, identify the project being referred to from the transcript text
+4. Execute the instructions in the transcript fully and completely — write code, draft documents, do research, or whatever is asked
+5. When done, write a brief summary of everything you did
+
+If no trigger phrase is found, ignore the file.
+Stay running and repeat this for every new file that appears.</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;color:#a5b4fc;font-weight:700">4</div>
+          <div>
+            <div style="font-weight:600;font-size:14px;margin-bottom:4px">Leave Cowork running</div>
+            <div style="font-size:13px;color:var(--muted);line-height:1.6">
+              That's it. Cowork stays open in the background. Every time Plaud syncs a new transcript to Drive, Cowork picks it up, checks for a trigger, and acts — with no extra steps from you.<br><br>
+              <strong style="color:var(--text)">With this setup, you don't need to run <code style="font-family:monospace;font-size:12px">./start.sh</code> at all</strong> — Cowork handles everything end-to-end.
+            </div>
+          </div>
+        </div>
+
+        <div style="background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--muted)">
+          <strong style="color:var(--green)">Tip:</strong> If you want both Cowork <em>and</em> Claude Code CLI to trigger, set <code style="font-family:monospace;font-size:12px;color:var(--text)">"launcher": "both"</code> in config.json and run <code style="font-family:monospace;font-size:12px;color:var(--text)">./start.sh</code> alongside Cowork.
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -621,6 +685,14 @@
 </footer>
 
 <script>
+function copyCowork(btn) {
+  const text = document.getElementById('cowork-prompt').textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1800);
+  });
+}
+
 function copy(btn) {
   const pre = btn.parentElement;
   const text = [...pre.childNodes]
