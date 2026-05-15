@@ -392,63 +392,46 @@
         <div class="step-content">
           <h3>Run the setup wizard</h3>
           <p>Guides you through Google OAuth, your Drive folder, and project root. One command — everything configured.</p>
-          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>python3 setup.py
+          <pre><span class="copy-btn" onclick="copyCmd(this,'python3.13 setup.py')">Copy</span><span class="prompt">$ </span>python3.13 setup.py</pre>
+          <p style="margin-top:10px">If <code style="font-family:monospace;font-size:12.5px">python3.13</code> isn't found, install it first:</p>
+          <pre><span class="copy-btn" onclick="copyCmd(this,'brew install python@3.13')">Copy</span><span class="prompt">$ </span>brew install python@3.13</pre>
 
-<span style="color:var(--green)">  ██████╗ ██╗      █████╗ ██╗   ██╗██████╗ ███████╗</span>
-<span style="color:var(--green)">  ██╔══██╗██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝</span>
-<span style="color:var(--green)">  ██████╔╝██║     ███████║██║   ██║██║  ██║█████╗  </span>
-<span style="color:var(--green)">  ██╔═══╝ ██║     ██╔══██║██║   ██║██║  ██║██╔══╝  </span>
-<span style="color:var(--green)">  ██║     ███████╗██║  ██║╚██████╔╝██████╔╝███████╗</span>
-<span style="color:var(--green)">  ╚═╝     ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝</span>
+          <p style="margin-top:16px;margin-bottom:10px;font-size:13px;color:var(--muted)">The wizard walks you through 5 steps — here's what to expect:</p>
 
-  <span style="color:#888">Voice → Claude. Say it. It builds it.</span>
+          <div style="background:#000;border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;font-family:'SF Mono','Fira Code',monospace;font-size:12.5px;line-height:1.75;color:#ccc;pointer-events:none;user-select:none">
+            <div style="color:var(--green)">  ██████╗ ██╗      █████╗ ██╗   ██╗██████╗ ███████╗</div>
+            <div style="color:var(--green)">  ██╔══██╗██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝</div>
+            <div style="color:var(--green)">  ██████╔╝██║     ███████║██║   ██║██║  ██║█████╗  </div>
+            <div style="color:var(--green)">  ██╔═══╝ ██║     ██╔══██║██║   ██║██║  ██║██╔══╝  </div>
+            <div style="color:var(--green)">  ██║     ███████╗██║  ██║╚██████╔╝██████╔╝███████╗</div>
+            <div style="color:var(--green)">  ╚═╝     ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝</div>
+            <div style="margin-top:10px;color:#555">  ──────────────────────────────────────────────────</div>
+            <div>  <span style="font-weight:bold;color:#eee">Setup Wizard</span>  <span style="color:#555">· v1.0</span></div>
+            <div style="color:#555">  ──────────────────────────────────────────────────</div>
+            <div style="margin-top:10px"><span style="color:#666">  Step 1/5</span>  <span style="color:#eee;font-weight:bold">Environment check</span></div>
+            <div style="color:#555">  ────────────────────────────────────</div>
+            <div>  <span style="color:var(--green)">✓</span> Python 3.13 &nbsp;&nbsp;<span style="color:var(--green)">✓</span> cloudflared</div>
+            <div style="margin-top:8px"><span style="color:#666">  Step 2/5</span>  <span style="color:#eee;font-weight:bold">Google OAuth credentials</span></div>
+            <div style="color:#555">  ────────────────────────────────────</div>
+            <div>  <span style="color:#36b">→</span> Follow the on-screen steps to create credentials.json</div>
+            <div>  <span style="color:var(--green)">✓</span> credentials.json found</div>
+            <div style="margin-top:8px"><span style="color:#666">  Step 3/5</span>  <span style="color:#eee;font-weight:bold">Google sign-in</span></div>
+            <div style="color:#555">  ────────────────────────────────────</div>
+            <div>  <span style="color:#36b">→</span> Browser opens for Google sign-in…</div>
+            <div>  <span style="color:var(--green)">✓</span> Authenticated — token.json saved</div>
+            <div style="margin-top:8px"><span style="color:#666">  Step 4/5</span>  <span style="color:#eee;font-weight:bold">Google Drive folder</span></div>
+            <div style="color:#555">  ────────────────────────────────────</div>
+            <div>  Folder ID: <span style="color:#888">← paste from Drive URL</span></div>
+            <div>  <span style="color:var(--green)">✓</span> Folder found: "PLAUD"</div>
+            <div style="margin-top:8px"><span style="color:#666">  Step 5/5</span>  <span style="color:#eee;font-weight:bold">Projects root</span></div>
+            <div style="color:#555">  ────────────────────────────────────</div>
+            <div>  Projects root [~/code]: <span style="color:#888">← press Enter or type your path</span></div>
+            <div>  <span style="color:var(--green)">✓</span> config.json saved</div>
+            <div style="margin-top:12px;color:var(--green);font-weight:bold">  ✓ Setup complete!</div>
+          </div>
 
-  <span style="color:#555">──────────────────────────────────────────────────────</span>
-  Setup Wizard  <span style="color:#555">·  v1.0</span>
-  <span style="color:#555">──────────────────────────────────────────────────────</span>
-
-  <span style="color:#666">Step 1/5</span>  <span style="color:#eee;font-weight:bold">Environment check</span>
-  <span style="color:#555">────────────────────────────────────────</span>
-  <span style="color:var(--green)">✓</span> Python 3.13
-  <span style="color:var(--green)">✓</span> claude
-  <span style="color:var(--green)">✓</span> cloudflared
-
-  <span style="color:#666">Step 2/5</span>  <span style="color:#eee;font-weight:bold">Google OAuth credentials</span>
-  <span style="color:#555">────────────────────────────────────────</span>
-  <span style="color:var(--green)">✓</span> credentials.json
-
-  <span style="color:#666">Step 3/5</span>  <span style="color:#eee;font-weight:bold">Google sign-in</span>
-  <span style="color:#555">────────────────────────────────────────</span>
-  <span style="color:#36b">→</span> A browser window will open for Google sign-in…
-  <span style="color:var(--green)">✓</span> Authenticated — token.json saved
-
-  <span style="color:#666">Step 4/5</span>  <span style="color:#eee;font-weight:bold">Google Drive folder</span>
-  <span style="color:#555">────────────────────────────────────────</span>
-  <span style="color:#36b">→</span> Open Google Drive → find the Plaud folder
-  Folder ID: <span style="color:#888">1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms</span>
-  <span style="color:var(--green)">✓</span> Folder found: "PLAUD"
-
-  <span style="color:#666">Step 5/5</span>  <span style="color:#eee;font-weight:bold">Projects root</span>
-  <span style="color:#555">────────────────────────────────────────</span>
-  Projects root [~/code]: <span style="color:#888">~/code</span>
-  <span style="color:var(--green)">✓</span> /Users/you/code  (12 directories found)
-  <span style="color:var(--green)">✓</span> config.json saved
-
-  <span style="color:var(--green);font-weight:bold">✓ Setup complete!</span>
-
-  <span style="color:#555">Config</span>
-    Drive folder:   1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms
-    Projects root:  ~/code
-
-  <span style="color:#eee;font-weight:bold">Next steps</span>
-
-  <span style="color:#36b">→</span> Start Plaude:
-     <span style="color:var(--green)">./start.sh</span>
-
-  <span style="color:#36b">→</span> Then make a Plaud recording and say:
-     <span style="color:var(--green)">"send to claude — fix the auth bug in my-app"</span></pre>
           <div style="margin-top:12px;background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--muted)">
-            <strong style="color:var(--green)">Note:</strong> When the browser opens for Google sign-in, you'll see a <em>"Google hasn't verified this app"</em> warning — this is expected since the app is in testing mode. Click <strong style="color:var(--text)">Advanced → Go to plaude (unsafe)</strong> to continue.
+            <strong style="color:var(--green)">Note:</strong> When the browser opens you'll see <em>"Google hasn't verified this app"</em> — click <strong style="color:var(--text)">Advanced → Go to plaude (unsafe)</strong>. This is expected; you're authorising your own app.
           </div>
         </div>
       </div>
@@ -663,6 +646,13 @@ Stay running and repeat this for every new file that appears.</pre>
 </footer>
 
 <script>
+function copyCmd(btn, text) {
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 1800);
+  });
+}
+
 function copyCowork(btn) {
   const text = document.getElementById('cowork-prompt').textContent.trim();
   navigator.clipboard.writeText(text).then(() => {
