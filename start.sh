@@ -16,5 +16,6 @@ if [ ! -f token.json ]; then
   exit 1
 fi
 
+PYTHON=$(which python3.13 2>/dev/null || which python3 2>/dev/null || echo "python3")
 echo "Starting Plaude Code..."
-python3 -m src.watcher
+$PYTHON -m src.watcher

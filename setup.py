@@ -1,106 +1,165 @@
 #!/usr/bin/env python3
-"""Plaude Code — one-time setup wizard."""
+"""Plaude — one-time setup wizard."""
 
 import json
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).parent
 SCOPES = ["https://www.googleapis.com/auth/drive.readonly"]
 
+# ── ANSI colours ──────────────────────────────────────────────────────────────
+RESET  = "\033[0m"
+BOLD   = "\033[1m"
+DIM    = "\033[2m"
+GREEN  = "\033[32m"
+YELLOW = "\033[33m"
+RED    = "\033[31m"
+CYAN   = "\033[36m"
+WHITE  = "\033[97m"
+BG_DARK = "\033[48;5;235m"
+
+def c(text, *codes): return "".join(codes) + text + RESET
+def ok(msg):   print(f"  {c('✓', GREEN, BOLD)} {msg}")
+def warn(msg): print(f"  {c('⚠', YELLOW, BOLD)} {msg}")
+def err(msg):  print(f"  {c('✗', RED, BOLD)} {msg}")
+def info(msg): print(f"  {c('→', CYAN)} {msg}")
+def dim(msg):  print(c(f"  {msg}", DIM))
+
+
+def clear_line(): print("\033[F\033[K", end="")
+
+
+def print_logo() -> None:
+    print()
+    print(c("  ██████╗ ██╗      █████╗ ██╗   ██╗██████╗ ███████╗", CYAN, BOLD))
+    print(c("  ██╔══██╗██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝", CYAN, BOLD))
+    print(c("  ██████╔╝██║     ███████║██║   ██║██║  ██║█████╗  ", CYAN, BOLD))
+    print(c("  ██╔═══╝ ██║     ██╔══██║██║   ██║██║  ██║██╔══╝  ", CYAN, BOLD))
+    print(c("  ██║     ███████╗██║  ██║╚██████╔╝██████╔╝███████╗", CYAN, BOLD))
+    print(c("  ╚═╝     ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝", CYAN, BOLD))
+    print()
+    print(c("  Voice → Claude. Say it. It builds it.", DIM))
+    print()
+    print(c("  " + "─" * 54, DIM))
+    print(c("  Setup Wizard", BOLD, WHITE) + c("  ·  v1.0", DIM))
+    print(c("  " + "─" * 54, DIM))
+    print()
+
+
+def section(title: str, step: int, total: int) -> None:
+    print()
+    print(c(f"  Step {step}/{total}", DIM) + "  " + c(title, BOLD, WHITE))
+    print(c("  " + "─" * 40, DIM))
+
+
+def spinner(msg: str, duration: float = 0.8) -> None:
+    frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
+    end = time.time() + duration
+    i = 0
+    while time.time() < end:
+        print(f"\r  {c(frames[i % len(frames)], CYAN)} {msg}", end="", flush=True)
+        time.sleep(0.08)
+        i += 1
+    print("\r" + " " * (len(msg) + 6) + "\r", end="")
+
 
 def check_only() -> None:
-    """Import all src modules and exit — used by CI / --check flag."""
     sys.path.insert(0, str(PROJECT_ROOT))
     from src import drive, detector, tunnel, bridge, watcher  # noqa: F401
-    print("✓ All imports OK")
+    ok("All imports OK")
     sys.exit(0)
 
 
-def banner(text: str) -> None:
-    print(f"\n{'─' * 50}")
-    print(f"  {text}")
-    print(f"{'─' * 50}")
-
-
 def require_python() -> None:
-    banner("Checking Python version")
     major, minor = sys.version_info[:2]
     if major < 3 or (major == 3 and minor < 10):
-        print(f"✗ Python 3.10+ required. You have {major}.{minor}.")
+        err(f"Python 3.10+ required — you have {major}.{minor}")
+        info("Install via: brew install python@3.13")
         sys.exit(1)
-    print(f"✓ Python {major}.{minor}")
+    ok(f"Python {major}.{minor}")
 
 
-def check_tool(name: str, install_hint: str) -> None:
+def check_tool(name: str, install_hint: str) -> bool:
     if shutil.which(name):
-        print(f"✓ {name} found")
+        ok(f"{name}")
+        return True
     else:
-        print(f"⚠  {name} not found. {install_hint}")
+        warn(f"{name} not found")
+        dim(f"   Install: {install_hint}")
+        return False
 
 
 def require_credentials() -> Path:
-    banner("Google OAuth setup")
     creds_path = PROJECT_ROOT / "credentials.json"
 
     if not creds_path.exists():
-        print("You need a Google OAuth 2.0 credentials file.")
         print()
-        print("Steps:")
-        print("  1. Go to https://console.cloud.google.com/")
-        print("  2. Create or select a project")
-        print("  3. Enable the Google Drive API")
-        print("  4. Go to APIs & Services → Credentials")
-        print("  5. Create credentials → OAuth 2.0 Client ID → Desktop app")
-        print("  6. Download the JSON and save it as:")
-        print(f"     {creds_path}")
+        print(c("  credentials.json not found.", YELLOW))
         print()
-        input("Press Enter once credentials.json is in place...")
+        print(c("  Follow these steps:", BOLD))
+        print()
+        info("Go to https://console.cloud.google.com/")
+        info("Select your project (or create one)")
+        info("Search for 'Google Drive API' → Enable it")
+        info("Go to APIs & Services → Credentials")
+        info("Click Create Credentials → OAuth 2.0 Client ID")
+        info("Application type → Desktop app → Create")
+        info("Click Download JSON → save as  credentials.json")
+        info(f"Move the file to:  {creds_path}")
+        print()
+        input(c("  Press Enter once credentials.json is in place…", DIM))
+        print()
 
     if not creds_path.exists():
-        print("✗ credentials.json still not found. Exiting.")
+        err("credentials.json still not found. Exiting.")
         sys.exit(1)
 
-    print("✓ credentials.json found")
+    ok("credentials.json")
     return creds_path
 
 
 def run_oauth(creds_path: Path) -> None:
     token_path = PROJECT_ROOT / "token.json"
     if token_path.exists():
-        print("✓ token.json already exists — skipping OAuth flow")
+        ok("token.json already exists — skipping OAuth")
         return
 
     try:
         from google_auth_oauthlib.flow import InstalledAppFlow
     except ImportError:
-        print("✗ google-auth-oauthlib not installed. Run: pip install -r requirements.txt")
+        err("google-auth-oauthlib not installed")
+        info("Run: pip install -r requirements.txt")
         sys.exit(1)
 
-    print("Starting OAuth flow — a browser window will open...")
+    print()
+    info("A browser window will open for Google sign-in…")
+    print()
     flow = InstalledAppFlow.from_client_secrets_file(str(creds_path), SCOPES)
     creds = flow.run_local_server(port=0)
     token_path.write_text(creds.to_json())
-    print("✓ token.json saved")
+    ok("Authenticated — token.json saved")
 
 
 def ask_folder_id() -> str:
-    banner("Google Drive folder")
-    print("Open Google Drive in your browser and navigate to the folder")
-    print("where your Plaud transcripts are saved.")
-    print("Copy the folder ID from the URL:")
-    print("  https://drive.google.com/drive/folders/<FOLDER_ID>")
+    print()
+    print(c("  Find your Plaud Drive folder ID:", BOLD))
+    print()
+    info("Open Google Drive → find the folder Plaud syncs to")
+    info("Click the folder — copy the ID from the URL:")
+    dim("   https://drive.google.com/drive/folders/  ← this part →")
     print()
 
     while True:
-        folder_id = input("Paste folder ID: ").strip()
+        folder_id = input(c("  Folder ID: ", CYAN)).strip()
         if not folder_id:
-            print("Folder ID cannot be empty.")
+            warn("Folder ID cannot be empty")
             continue
 
-        print(f"Verifying access to folder {folder_id}...")
+        spinner(f"Verifying folder access…")
         try:
             from google.auth.transport.requests import Request
             from google.oauth2.credentials import Credentials
@@ -111,82 +170,94 @@ def ask_folder_id() -> str:
             if creds.expired and creds.refresh_token:
                 creds.refresh(Request())
             service = build("drive", "v3", credentials=creds)
-            service.files().get(fileId=folder_id).execute()
-            print("✓ Folder accessible")
+            meta = service.files().get(fileId=folder_id, fields="name").execute()
+            ok(f"Folder found: \"{meta.get('name', folder_id)}\"")
             return folder_id
         except Exception as e:
-            print(f"✗ Could not access folder: {e}")
-            retry = input("Try a different folder ID? [y/N]: ").strip().lower()
+            err(f"Could not access folder: {e}")
+            retry = input(c("  Try a different ID? [y/N]: ", DIM)).strip().lower()
             if retry != "y":
                 sys.exit(1)
 
 
 def ask_projects_root() -> str:
-    banner("Projects root directory")
-    print("Where are your local project directories?")
-    print("Example: ~/projects  or  ~/code  or  /Users/you/dev")
+    print()
+    print(c("  Where are your local project folders?", BOLD))
+    dim("   This is the directory that contains all your repos/projects.")
+    dim("   Example: ~/code  ~/projects  ~/dev  ~/work")
     print()
 
     while True:
-        raw = input("Projects root [~/projects]: ").strip() or "~/projects"
+        raw = input(c("  Projects root [~/code]: ", CYAN)).strip() or "~/code"
         path = Path(raw).expanduser()
         if path.exists() and path.is_dir():
-            print(f"✓ Directory exists: {path}")
+            count = sum(1 for p in path.iterdir() if p.is_dir())
+            ok(f"{path}  ({count} directories found)")
             return str(raw)
-        create = input(f"Directory not found. Create it? [y/N]: ").strip().lower()
+        create = input(c(f"  {path} doesn't exist. Create it? [y/N]: ", YELLOW)).strip().lower()
         if create == "y":
             path.mkdir(parents=True)
-            print(f"✓ Created {path}")
+            ok(f"Created {path}")
             return str(raw)
 
 
 def write_config(folder_id: str, projects_root: str) -> None:
-    banner("Writing config.json")
     config_path = PROJECT_ROOT / "config.json"
     config = json.loads(config_path.read_text()) if config_path.exists() else {}
     config["drive_folder_id"] = folder_id
     config["projects_root"] = projects_root
     config_path.write_text(json.dumps(config, indent=2))
-    print(f"✓ config.json updated")
+    ok("config.json saved")
 
 
 def print_summary(folder_id: str, projects_root: str) -> None:
-    banner("Setup complete!")
-    print(f"  Drive folder:   {folder_id}")
-    print(f"  Projects root:  {projects_root}")
     print()
-    print("Next steps:")
-    print("  1. Make sure cloudflared is installed")
-    print("     brew install cloudflare/cloudflare/cloudflared")
-    print("  2. Make sure Claude Code CLI is installed")
-    print("     npm install -g @anthropic-ai/claude-code")
-    print("  3. Start the bridge:")
-    print("     ./start.sh")
+    print(c("  " + "─" * 54, DIM))
     print()
-    print("Say 'send to claude' in your next Plaud recording and watch it go!")
+    print(c("  ✓ Setup complete!", GREEN, BOLD))
+    print()
+    print(c("  Config", DIM))
+    dim(f"   Drive folder:   {folder_id}")
+    dim(f"   Projects root:  {projects_root}")
+    print()
+    print(c("  Next steps", BOLD))
+    print()
+    info("Start Plaude:")
+    print(c("     ./start.sh", CYAN, BOLD))
+    print()
+    info("Then make a Plaud recording and say:")
+    print(c('     "send to claude — fix the auth bug in my-app"', CYAN))
+    print()
+    print(c("  " + "─" * 54, DIM))
+    print()
 
 
 def main() -> None:
     if "--check" in sys.argv:
         check_only()
 
-    print()
-    print("╔════════════════════════════════════╗")
-    print("║   Plaude Code — Setup Wizard        ║")
-    print("╚════════════════════════════════════╝")
+    print_logo()
 
     sys.path.insert(0, str(PROJECT_ROOT))
+    TOTAL = 5
 
+    section("Environment check", 1, TOTAL)
     require_python()
+    check_tool("claude", "npm install -g @anthropic-ai/claude-code")
+    check_tool("cloudflared", "brew install cloudflare/cloudflare/cloudflared")
 
-    banner("Checking required tools")
-    check_tool("claude", "Install: npm install -g @anthropic-ai/claude-code")
-    check_tool("cloudflared", "Install: brew install cloudflare/cloudflare/cloudflared")
-
+    section("Google OAuth credentials", 2, TOTAL)
     creds_path = require_credentials()
+
+    section("Google sign-in", 3, TOTAL)
     run_oauth(creds_path)
+
+    section("Google Drive folder", 4, TOTAL)
     folder_id = ask_folder_id()
+
+    section("Projects root", 5, TOTAL)
     projects_root = ask_projects_root()
+
     write_config(folder_id, projects_root)
     print_summary(folder_id, projects_root)
 

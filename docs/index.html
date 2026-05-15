@@ -378,7 +378,12 @@
         <div class="step-num">2</div>
         <div class="step-content">
           <h3>Install Python deps</h3>
-          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>pip install -r requirements.txt</pre>
+          <p>Use Python 3.13 from Homebrew if the default <code style="font-family:monospace;font-size:12.5px">python3</code> is broken or too new.</p>
+          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>pip3 install -r requirements.txt
+
+<span style="color:#666"># If you see "zsh: killed" or pip errors, use Homebrew Python directly:</span>
+<span class="prompt">$ </span>brew install python@3.13
+<span class="prompt">$ </span>/opt/homebrew/bin/python3.13 -m pip install -r requirements.txt --break-system-packages</pre>
         </div>
       </div>
 
@@ -386,8 +391,65 @@
         <div class="step-num">3</div>
         <div class="step-content">
           <h3>Run the setup wizard</h3>
-          <p>Handles Google OAuth, folder selection, and config in one shot.</p>
-          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>python setup.py</pre>
+          <p>Guides you through Google OAuth, your Drive folder, and project root. One command — everything configured.</p>
+          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>python3 setup.py
+
+<span style="color:var(--green)">  ██████╗ ██╗      █████╗ ██╗   ██╗██████╗ ███████╗</span>
+<span style="color:var(--green)">  ██╔══██╗██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝</span>
+<span style="color:var(--green)">  ██████╔╝██║     ███████║██║   ██║██║  ██║█████╗  </span>
+<span style="color:var(--green)">  ██╔═══╝ ██║     ██╔══██║██║   ██║██║  ██║██╔══╝  </span>
+<span style="color:var(--green)">  ██║     ███████╗██║  ██║╚██████╔╝██████╔╝███████╗</span>
+<span style="color:var(--green)">  ╚═╝     ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝</span>
+
+  <span style="color:#888">Voice → Claude. Say it. It builds it.</span>
+
+  <span style="color:#555">──────────────────────────────────────────────────────</span>
+  Setup Wizard  <span style="color:#555">·  v1.0</span>
+  <span style="color:#555">──────────────────────────────────────────────────────</span>
+
+  <span style="color:#666">Step 1/5</span>  <span style="color:#eee;font-weight:bold">Environment check</span>
+  <span style="color:#555">────────────────────────────────────────</span>
+  <span style="color:var(--green)">✓</span> Python 3.13
+  <span style="color:var(--green)">✓</span> claude
+  <span style="color:var(--green)">✓</span> cloudflared
+
+  <span style="color:#666">Step 2/5</span>  <span style="color:#eee;font-weight:bold">Google OAuth credentials</span>
+  <span style="color:#555">────────────────────────────────────────</span>
+  <span style="color:var(--green)">✓</span> credentials.json
+
+  <span style="color:#666">Step 3/5</span>  <span style="color:#eee;font-weight:bold">Google sign-in</span>
+  <span style="color:#555">────────────────────────────────────────</span>
+  <span style="color:#36b">→</span> A browser window will open for Google sign-in…
+  <span style="color:var(--green)">✓</span> Authenticated — token.json saved
+
+  <span style="color:#666">Step 4/5</span>  <span style="color:#eee;font-weight:bold">Google Drive folder</span>
+  <span style="color:#555">────────────────────────────────────────</span>
+  <span style="color:#36b">→</span> Open Google Drive → find the Plaud folder
+  Folder ID: <span style="color:#888">1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms</span>
+  <span style="color:var(--green)">✓</span> Folder found: "PLAUD"
+
+  <span style="color:#666">Step 5/5</span>  <span style="color:#eee;font-weight:bold">Projects root</span>
+  <span style="color:#555">────────────────────────────────────────</span>
+  Projects root [~/code]: <span style="color:#888">~/code</span>
+  <span style="color:var(--green)">✓</span> /Users/you/code  (12 directories found)
+  <span style="color:var(--green)">✓</span> config.json saved
+
+  <span style="color:var(--green);font-weight:bold">✓ Setup complete!</span>
+
+  <span style="color:#555">Config</span>
+    Drive folder:   1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms
+    Projects root:  ~/code
+
+  <span style="color:#eee;font-weight:bold">Next steps</span>
+
+  <span style="color:#36b">→</span> Start Plaude:
+     <span style="color:var(--green)">./start.sh</span>
+
+  <span style="color:#36b">→</span> Then make a Plaud recording and say:
+     <span style="color:var(--green)">"send to claude — fix the auth bug in my-app"</span></pre>
+          <div style="margin-top:12px;background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--muted)">
+            <strong style="color:var(--green)">Note:</strong> When the browser opens for Google sign-in, you'll see a <em>"Google hasn't verified this app"</em> warning — this is expected since the app is in testing mode. Click <strong style="color:var(--text)">Advanced → Go to plaude (unsafe)</strong> to continue.
+          </div>
         </div>
       </div>
 
