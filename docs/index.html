@@ -262,7 +262,6 @@
     <p>Your voice, straight to Claude. Say it. Done.</p>
     <div class="hero-cta">
       <a href="#setup" class="btn">Get started</a>
-      <a href="https://github.com/OllieB1943/plaude" target="_blank" rel="noopener" class="btn-ghost">View on GitHub</a>
     </div>
   </div>
 
@@ -361,8 +360,17 @@
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
-          <h3>Give Cowork its instructions</h3>
-          <p>Paste the prompt below as Cowork's first message. It tells Claude to watch the folder, detect trigger phrases, and act on them automatically — forever.</p>
+          <h3>Choose your trigger word and give Cowork its instructions</h3>
+          <p>Pick a word you'll say at the end of any recording you want Claude to act on. It should be something you'd never say by accident — your name, a made-up word, anything distinctive.</p>
+
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:16px">
+            <label style="font-size:13px;color:var(--muted);display:block;margin-bottom:8px;font-weight:500">Your trigger word</label>
+            <input id="trigger-word" type="text" placeholder="e.g.  plaude  /  execute  /  your name" oninput="updatePrompt()"
+              style="width:100%;background:#000;border:1px solid var(--border);border-radius:6px;padding:10px 14px;font-size:14px;color:var(--text);font-family:inherit;outline:none;transition:border-color 0.15s"
+              onfocus="this.style.borderColor='var(--green)'" onblur="this.style.borderColor='var(--border)'">
+            <p style="margin-top:10px;margin-bottom:0;font-size:12.5px;color:var(--muted)">In recordings, just say this word when you want Claude to act: <em style="color:var(--text)">"…book me a table for Saturday — <span id="trigger-preview" style="color:var(--green)">plaude</span>"</em></p>
+          </div>
+
           <div class="prompt-box">
             <div class="prompt-box-header">
               <span class="prompt-box-label">Cowork prompt — paste this once</span>
@@ -371,11 +379,11 @@
             <pre id="cowork-prompt">Watch my Google Drive Plaud folder for new files. Whenever a new transcript appears:
 
 1. Read the full transcript text
-2. Check if it contains a trigger phrase like "send to claude", "claude fix", "claude draft", "claude plan", "claude write", or anything starting with "claude [verb]"
-3. If a trigger is found, identify what needs to be done from the transcript and execute it fully — write code, draft documents, do research, send emails, make a plan, or whatever is asked
+2. Check if the word "<span id="prompt-trigger" style="color:var(--green)">plaude</span>" appears anywhere in the transcript
+3. If it does, identify what needs to be done from the transcript and execute it fully — write code, draft documents, do research, send emails, make a plan, or whatever is asked
 4. When done, write a brief summary of everything you did
 
-If no trigger phrase is found, ignore the file.
+If the word does not appear, ignore the file.
 Stay running and repeat this for every new file that appears.</pre>
           </div>
           <div class="tip">
@@ -389,23 +397,26 @@ Stay running and repeat this for every new file that appears.</pre>
 
   <!-- ── Triggers ── -->
   <section id="triggers">
-    <h2>Trigger phrases</h2>
-    <p class="section-sub">Say any of these in your recording. Works for code, writing, planning — anything Claude can do.</p>
-    <div class="pill-grid">
-      <span class="pill">send to claude</span>
-      <span class="pill">send this to claude</span>
-      <span class="pill">claude fix</span>
-      <span class="pill">claude draft</span>
-      <span class="pill">claude write</span>
-      <span class="pill">claude plan</span>
-      <span class="pill">claude research</span>
-      <span class="pill">claude summarise</span>
-      <span class="pill">claude handle</span>
-      <span class="pill">go to claude</span>
-      <span class="pill">for claude</span>
-      <span class="pill catch">claude [anything] →</span>
+    <h2>How to use it</h2>
+    <p class="section-sub">Just say your trigger word anywhere in a recording. Claude handles the rest.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500">Code</div>
+        <div style="font-size:14px;color:var(--text);font-style:italic">"Fix the login bug in my-app — <span class="trigger-word-eg" style="color:var(--green)">plaude</span>"</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500">Writing</div>
+        <div style="font-size:14px;color:var(--text);font-style:italic">"Draft a follow-up email to the investor meeting — <span class="trigger-word-eg" style="color:var(--green)">plaude</span>"</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500">Research</div>
+        <div style="font-size:14px;color:var(--text);font-style:italic">"Research the best flight options to Tokyo in March — <span class="trigger-word-eg" style="color:var(--green)">plaude</span>"</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;font-weight:500">Planning</div>
+        <div style="font-size:14px;color:var(--text);font-style:italic">"Make a project plan for the rebrand — <span class="trigger-word-eg" style="color:var(--green)">plaude</span>"</div>
+      </div>
     </div>
-    <p style="margin-top:14px;font-size:13px;color:var(--muted)">The <span style="background:rgba(0,229,160,0.12);color:var(--green);border-radius:100px;padding:2px 10px;font-size:12px">catch-all</span> matches any phrase starting with "claude" followed by a verb — "claude book me a restaurant", "claude make a plan for this", "claude write a cover letter".</p>
   </section>
 
   <!-- ── FAQ ── -->
@@ -454,8 +465,24 @@ Stay running and repeat this for every new file that appears.</pre>
 </footer>
 
 <script>
+function updatePrompt() {
+  const word = document.getElementById('trigger-word').value.trim() || 'plaude';
+  document.getElementById('prompt-trigger').textContent = word;
+  document.getElementById('trigger-preview').textContent = word;
+  document.querySelectorAll('.trigger-word-eg').forEach(el => el.textContent = word);
+}
+
 function copyPrompt(btn) {
-  const text = document.getElementById('cowork-prompt').textContent.trim();
+  const word = document.getElementById('trigger-word').value.trim() || 'plaude';
+  const text = `Watch my Google Drive Plaud folder for new files. Whenever a new transcript appears:
+
+1. Read the full transcript text
+2. Check if the word "${word}" appears anywhere in the transcript
+3. If it does, identify what needs to be done from the transcript and execute it fully — write code, draft documents, do research, send emails, make a plan, or whatever is asked
+4. When done, write a brief summary of everything you did
+
+If the word does not appear, ignore the file.
+Stay running and repeat this for every new file that appears.`;
   navigator.clipboard.writeText(text).then(() => {
     btn.textContent = 'Copied!';
     setTimeout(() => btn.textContent = 'Copy', 1800);
