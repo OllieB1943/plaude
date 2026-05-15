@@ -18,6 +18,9 @@
     --muted:   #666;
     --green:   #00E5A0;
     --green2:  #00C48A;
+    --indigo:  #818cf8;
+    --indigo-bg: rgba(99,102,241,0.12);
+    --indigo-border: rgba(99,102,241,0.3);
     --radius:  10px;
   }
 
@@ -34,253 +37,205 @@
   a { color: var(--green); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  .container { max-width: 740px; margin: 0 auto; padding: 0 24px; }
+  .container { max-width: 700px; margin: 0 auto; padding: 0 24px; }
 
   /* ── Nav ── */
   nav {
     padding: 18px 0;
     border-bottom: 1px solid var(--border);
     position: sticky; top: 0; z-index: 10;
-    background: rgba(13,13,13,0.9);
-    backdrop-filter: blur(10px);
+    background: rgba(13,13,13,0.92);
+    backdrop-filter: blur(12px);
   }
   nav .inner {
-    max-width: 740px; margin: 0 auto; padding: 0 24px;
+    max-width: 700px; margin: 0 auto; padding: 0 24px;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .nav-logo {
-    font-weight: 800; font-size: 15px; letter-spacing: -0.3px;
-  }
+  .nav-logo { font-weight: 800; font-size: 15px; letter-spacing: -0.3px; }
   .nav-logo .serif-e {
     font-family: "Playfair Display", serif;
-    font-weight: 900;
-    font-style: italic;
+    font-weight: 900; font-style: italic;
   }
   .nav-gh {
     font-size: 13px; color: var(--muted);
     display: flex; align-items: center; gap: 6px;
   }
-  .nav-gh:hover { color: var(--text); }
+  .nav-gh:hover { color: var(--text); text-decoration: none; }
   .nav-gh svg { width: 16px; height: 16px; fill: currentColor; }
 
   /* ── Hero ── */
-  .hero { padding: 80px 0 60px; }
+  .hero { padding: 88px 0 64px; }
   .hero-badge {
     display: inline-flex; align-items: center; gap: 8px;
     background: rgba(0,229,160,0.1);
     border: 1px solid rgba(0,229,160,0.25);
     border-radius: 100px;
     padding: 5px 14px;
-    font-size: 12.5px;
-    color: var(--green);
-    margin-bottom: 24px;
-    font-weight: 500;
+    font-size: 12.5px; color: var(--green);
+    margin-bottom: 28px; font-weight: 500;
   }
   .hero h1 {
-    font-size: clamp(56px, 10vw, 88px);
-    font-weight: 900;
-    letter-spacing: -4px;
-    line-height: 1;
-    color: var(--text);
+    font-size: clamp(60px, 12vw, 96px);
+    font-weight: 900; letter-spacing: -4px; line-height: 1;
   }
   .hero h1 .serif-e {
     font-family: "Playfair Display", serif;
-    font-weight: 900;
-    font-style: italic;
-    letter-spacing: -2px;
+    font-weight: 900; font-style: italic; letter-spacing: -2px;
   }
   .hero p {
-    margin-top: 22px;
-    font-size: 20px;
-    color: var(--muted);
-    max-width: 460px;
-    line-height: 1.55;
+    margin-top: 24px; font-size: 20px; color: var(--muted);
+    max-width: 420px; line-height: 1.55;
   }
   .hero-cta {
-    margin-top: 36px;
-    display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+    margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
   }
   .btn {
-    display: inline-block;
-    background: var(--green);
-    color: #000;
-    padding: 12px 26px;
-    border-radius: 100px;
-    font-weight: 700;
-    font-size: 14px;
+    display: inline-block; background: var(--green); color: #000;
+    padding: 13px 28px; border-radius: 100px;
+    font-weight: 700; font-size: 14px;
     transition: background 0.15s, transform 0.1s;
   }
   .btn:hover { background: var(--green2); text-decoration: none; transform: translateY(-1px); }
   .btn-ghost {
-    display: inline-block;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    padding: 12px 26px;
-    border-radius: 100px;
-    font-size: 14px;
+    display: inline-block; border: 1px solid var(--border);
+    color: var(--muted); padding: 13px 28px; border-radius: 100px; font-size: 14px;
     transition: border-color 0.15s, color 0.15s;
   }
   .btn-ghost:hover { border-color: var(--muted); color: var(--text); text-decoration: none; }
 
   /* ── Section ── */
-  section { padding: 56px 0; border-top: 1px solid var(--border); }
-  section h2 {
-    font-size: 26px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    margin-bottom: 28px;
+  section { padding: 60px 0; border-top: 1px solid var(--border); }
+  section > h2 {
+    font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px;
   }
-
-  /* ── Prereqs ── */
-  .prereq-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .prereq-list li {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    display: flex; align-items: flex-start; gap: 16px;
-    font-size: 15px;
+  section > .section-sub {
+    font-size: 15px; color: var(--muted); margin-bottom: 36px;
   }
-  .prereq-list .idx {
-    flex-shrink: 0;
-    font-family: "SF Mono", "Fira Code", monospace;
-    font-size: 13px;
-    color: var(--green);
-    padding-top: 2px;
-    min-width: 22px;
-  }
-  .prereq-list .label { font-weight: 700; font-size: 15px; }
-  .prereq-list .sub { margin-top: 4px; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
-
-  /* ── Steps ── */
-  .steps { display: flex; flex-direction: column; gap: 0; }
-  .step {
-    display: flex; gap: 20px;
-    padding: 28px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .step:last-child { border-bottom: none; }
-  .step-num {
-    flex-shrink: 0; width: 32px; height: 32px;
-    border: 1px solid var(--border);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-family: "SF Mono", "Fira Code", monospace;
-    font-size: 12px; color: var(--muted);
-    margin-top: 2px;
-  }
-  .step-content h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-  .step-content p { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
-  .step-content p:last-child { margin-bottom: 0; }
-
-  /* ── Code ── */
-  pre {
-    background: #000;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    font-family: "SF Mono", "Fira Code", "Cascadia Code", monospace;
-    font-size: 13px;
-    line-height: 1.65;
-    overflow-x: auto;
-    position: relative;
-    color: #ccc;
-  }
-  pre .prompt { color: var(--green); user-select: none; }
-  .copy-btn {
-    position: absolute; top: 10px; right: 10px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    color: var(--muted);
-    border-radius: 6px;
-    padding: 3px 10px; font-size: 11px;
-    cursor: pointer; transition: color 0.15s, border-color 0.15s;
-    font-family: inherit;
-  }
-  .copy-btn:hover { color: var(--text); border-color: var(--muted); }
 
   /* ── Flow ── */
   .flow {
     display: grid;
-    grid-template-columns: 1fr 32px 1fr 32px 1fr;
-    gap: 8px; align-items: center;
+    grid-template-columns: 1fr 28px 1fr 28px 1fr;
+    gap: 8px; align-items: center; margin-bottom: 56px;
   }
   .flow-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px 16px;
-    text-align: center;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 16px; text-align: center;
   }
-  .flow-card .icon { font-size: 26px; margin-bottom: 10px; }
+  .flow-card .icon { font-size: 28px; margin-bottom: 10px; }
   .flow-card strong { display: block; font-size: 14px; font-weight: 700; margin-bottom: 4px; }
   .flow-card span { font-size: 12px; color: var(--muted); }
-  .flow-arrow { text-align: center; color: var(--muted); font-size: 18px; }
-
-  @media (max-width: 560px) {
+  .flow-arrow { text-align: center; color: var(--muted); font-size: 16px; }
+  @media (max-width: 540px) {
     .flow { grid-template-columns: 1fr; }
     .flow-arrow { transform: rotate(90deg); }
   }
 
+  /* ── Steps ── */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step { display: flex; gap: 24px; padding: 36px 0; border-bottom: 1px solid var(--border); }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    flex-shrink: 0; width: 36px; height: 36px;
+    border: 1px solid var(--border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "SF Mono", monospace; font-size: 13px; color: var(--muted);
+    margin-top: 2px;
+  }
+  .step-content h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .step-content p { font-size: 14px; color: var(--muted); margin-bottom: 16px; line-height: 1.7; }
+  .step-content p:last-child { margin-bottom: 0; }
+
+  /* ── Substeps ── */
+  .substeps { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
+  .substep { display: flex; gap: 14px; align-items: flex-start; }
+  .substep-num {
+    flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+    background: var(--indigo-bg); border: 1px solid var(--indigo-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: var(--indigo); font-weight: 700; margin-top: 2px;
+  }
+  .substep-body { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+  .substep-body strong { color: var(--text); }
+
+  /* ── Prompt box ── */
+  .prompt-box {
+    background: #000; border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden; position: relative;
+  }
+  .prompt-box-header {
+    padding: 10px 16px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .prompt-box-label { font-size: 11px; color: var(--muted); font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; }
+  .copy-btn {
+    background: var(--surface); border: 1px solid var(--border);
+    color: var(--muted); border-radius: 6px; padding: 3px 10px;
+    font-size: 11px; cursor: pointer; font-family: inherit;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .copy-btn:hover { color: var(--text); border-color: var(--muted); }
+  .prompt-box pre {
+    padding: 16px 18px;
+    font-family: "SF Mono", "Fira Code", monospace;
+    font-size: 13px; line-height: 1.75;
+    white-space: pre-wrap; color: #ccc;
+    background: none; border: none;
+  }
+
+  /* ── Tip ── */
+  .tip {
+    background: rgba(0,229,160,0.06); border: 1px solid rgba(0,229,160,0.2);
+    border-radius: var(--radius); padding: 14px 18px;
+    font-size: 13px; color: var(--muted); margin-top: 16px;
+  }
+  .tip strong { color: var(--green); }
+
+  /* ── URL example ── */
+  .url-example {
+    background: #000; border: 1px solid var(--border);
+    border-radius: 6px; padding: 10px 14px;
+    font-family: "SF Mono", monospace; font-size: 12px;
+    margin: 10px 0; line-height: 1.5; color: #888;
+  }
+  .url-example .hl { color: var(--green); }
+
   /* ── Pills ── */
   .pill-grid { display: flex; flex-wrap: wrap; gap: 8px; }
   .pill {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    padding: 5px 14px;
-    font-size: 13px;
-    font-family: "SF Mono", "Fira Code", monospace;
-    color: var(--text);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 100px; padding: 5px 14px;
+    font-size: 13px; font-family: "SF Mono", monospace;
   }
   .pill.catch {
-    background: rgba(0,229,160,0.1);
-    border-color: rgba(0,229,160,0.3);
-    color: var(--green);
+    background: rgba(0,229,160,0.08); border-color: rgba(0,229,160,0.3); color: var(--green);
   }
 
   /* ── FAQ ── */
   details {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    margin-bottom: 6px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); overflow: hidden; margin-bottom: 6px;
   }
   summary {
-    padding: 16px 20px;
-    font-weight: 600;
-    font-size: 14.5px;
-    cursor: pointer;
-    list-style: none;
+    padding: 16px 20px; font-weight: 600; font-size: 14.5px;
+    cursor: pointer; list-style: none;
     display: flex; justify-content: space-between; align-items: center;
   }
   summary::-webkit-details-marker { display: none; }
   summary::after { content: "+"; font-size: 18px; color: var(--muted); }
   details[open] summary::after { content: "−"; }
   .faq-body {
-    padding: 0 20px 16px;
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.7;
+    padding: 0 20px 16px; font-size: 14px; color: var(--muted); line-height: 1.7;
   }
   .faq-body code {
-    background: #000;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 1px 6px;
-    font-family: "SF Mono", "Fira Code", monospace;
-    font-size: 12.5px;
-    color: var(--text);
+    background: #000; border: 1px solid var(--border); border-radius: 4px;
+    padding: 1px 6px; font-family: "SF Mono", monospace; font-size: 12.5px; color: var(--text);
   }
 
   /* ── Footer ── */
   footer {
     border-top: 1px solid var(--border);
-    padding: 32px 0;
-    text-align: center;
-    font-size: 13px;
-    color: var(--muted);
+    padding: 32px 0; text-align: center; font-size: 13px; color: var(--muted);
   }
   footer a { color: var(--muted); }
   footer a:hover { color: var(--text); }
@@ -306,174 +261,15 @@
     <h1>Plaud<span class="serif-e">e</span></h1>
     <p>Your voice, straight to Claude. Say it. Done.</p>
     <div class="hero-cta">
-      <a href="#install" class="btn">Get started</a>
+      <a href="#setup" class="btn">Get started</a>
       <a href="https://github.com/OllieB1943/plaude" target="_blank" rel="noopener" class="btn-ghost">View on GitHub</a>
     </div>
   </div>
 
-  <!-- ── Prerequisites ── -->
-  <section id="prereqs">
-    <h2>What you need</h2>
-    <ul class="prereq-list">
-      <li>
-        <div class="idx">01</div>
-        <div>
-          <div class="label">Python 3.10+</div>
-          <div class="sub">
-            Check: <code style="font-family:monospace;font-size:13px">python3 --version</code><br>
-            Install (macOS): <code style="font-family:monospace;font-size:13px">brew install python3</code><br>
-            Install (Windows): <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org/downloads</a>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="idx">02</div>
-        <div>
-          <div class="label">Claude — CLI or desktop app</div>
-          <div class="sub">
-            CLI: <code style="font-family:monospace;font-size:12px">npm install -g @anthropic-ai/claude-code</code><br>
-            Desktop: <a href="https://claude.ai/download" target="_blank" rel="noopener">claude.ai/download</a> (for Cowork launcher)
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="idx">03</div>
-        <div>
-          <div class="label">cloudflared</div>
-          <div class="sub">macOS: <code style="font-family:monospace;font-size:12px">brew install cloudflare/cloudflare/cloudflared</code> &nbsp;·&nbsp; Windows: <code style="font-family:monospace;font-size:12px">winget install Cloudflare.cloudflared</code></div>
-        </div>
-      </li>
-      <li>
-        <div class="idx">04</div>
-        <div>
-          <div class="label">A Google account</div>
-          <div class="sub">For Drive API access</div>
-        </div>
-      </li>
-      <li>
-        <div class="idx">05</div>
-        <div>
-          <div class="label">A Plaud device with Google Drive sync on</div>
-          <div class="sub">Transcripts must auto-sync to a Drive folder</div>
-        </div>
-      </li>
-    </ul>
-  </section>
-
-  <!-- ── Install ── -->
-  <section id="install">
-    <h2>Installation</h2>
-    <div class="steps">
-
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-content">
-          <h3>Clone the repo</h3>
-          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>git clone https://github.com/OllieB1943/plaude.git
-<span class="prompt">$ </span>cd plaude</pre>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-content">
-          <h3>Install Python deps</h3>
-          <p>Use Python 3.13 from Homebrew if the default <code style="font-family:monospace;font-size:12.5px">python3</code> is broken or too new.</p>
-          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>pip3 install -r requirements.txt
-
-<span style="color:#666"># If you see "zsh: killed" or pip errors, use Homebrew Python directly:</span>
-<span class="prompt">$ </span>brew install python@3.13
-<span class="prompt">$ </span>/opt/homebrew/bin/python3.13 -m pip install -r requirements.txt --break-system-packages</pre>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-content">
-          <h3>Run the setup wizard</h3>
-          <p>Guides you through Google OAuth, your Drive folder, and project root. One command — everything configured.</p>
-          <pre><span class="copy-btn" onclick="copyCmd(this,'python3.13 setup.py')">Copy</span><span class="prompt">$ </span>python3.13 setup.py</pre>
-          <p style="margin-top:10px">If <code style="font-family:monospace;font-size:12.5px">python3.13</code> isn't found, install it first:</p>
-          <pre><span class="copy-btn" onclick="copyCmd(this,'brew install python@3.13')">Copy</span><span class="prompt">$ </span>brew install python@3.13</pre>
-
-          <p style="margin-top:16px;margin-bottom:10px;font-size:13px;color:var(--muted)">The wizard walks you through 5 steps — here's what to expect:</p>
-
-          <div style="background:#000;border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;font-family:'SF Mono','Fira Code',monospace;font-size:12.5px;line-height:1.75;color:#ccc;pointer-events:none;user-select:none">
-            <div style="color:var(--green)">  ██████╗ ██╗      █████╗ ██╗   ██╗██████╗ ███████╗</div>
-            <div style="color:var(--green)">  ██╔══██╗██║     ██╔══██╗██║   ██║██╔══██╗██╔════╝</div>
-            <div style="color:var(--green)">  ██████╔╝██║     ███████║██║   ██║██║  ██║█████╗  </div>
-            <div style="color:var(--green)">  ██╔═══╝ ██║     ██╔══██║██║   ██║██║  ██║██╔══╝  </div>
-            <div style="color:var(--green)">  ██║     ███████╗██║  ██║╚██████╔╝██████╔╝███████╗</div>
-            <div style="color:var(--green)">  ╚═╝     ╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═════╝ ╚══════╝</div>
-            <div style="margin-top:10px;color:#555">  ──────────────────────────────────────────────────</div>
-            <div>  <span style="font-weight:bold;color:#eee">Setup Wizard</span>  <span style="color:#555">· v1.0</span></div>
-            <div style="color:#555">  ──────────────────────────────────────────────────</div>
-            <div style="margin-top:10px"><span style="color:#666">  Step 1/5</span>  <span style="color:#eee;font-weight:bold">Environment check</span></div>
-            <div style="color:#555">  ────────────────────────────────────</div>
-            <div>  <span style="color:var(--green)">✓</span> Python 3.13 &nbsp;&nbsp;<span style="color:var(--green)">✓</span> cloudflared</div>
-            <div style="margin-top:8px"><span style="color:#666">  Step 2/5</span>  <span style="color:#eee;font-weight:bold">Google OAuth credentials</span></div>
-            <div style="color:#555">  ────────────────────────────────────</div>
-            <div>  <span style="color:#36b">→</span> Follow the on-screen steps to create credentials.json</div>
-            <div>  <span style="color:var(--green)">✓</span> credentials.json found</div>
-            <div style="margin-top:8px"><span style="color:#666">  Step 3/5</span>  <span style="color:#eee;font-weight:bold">Google sign-in</span></div>
-            <div style="color:#555">  ────────────────────────────────────</div>
-            <div>  <span style="color:#36b">→</span> Browser opens for Google sign-in…</div>
-            <div>  <span style="color:var(--green)">✓</span> Authenticated — token.json saved</div>
-            <div style="margin-top:8px"><span style="color:#666">  Step 4/5</span>  <span style="color:#eee;font-weight:bold">Google Drive folder</span></div>
-            <div style="color:#555">  ────────────────────────────────────</div>
-            <div>  Folder ID: <span style="color:#888">← paste from Drive URL</span></div>
-            <div>  <span style="color:var(--green)">✓</span> Folder found: "PLAUD"</div>
-            <div style="margin-top:8px"><span style="color:#666">  Step 5/5</span>  <span style="color:#eee;font-weight:bold">Projects root</span></div>
-            <div style="color:#555">  ────────────────────────────────────</div>
-            <div>  Projects root [~/code]: <span style="color:#888">← press Enter or type your path</span></div>
-            <div>  <span style="color:var(--green)">✓</span> config.json saved</div>
-            <div style="margin-top:12px;color:var(--green);font-weight:bold">  ✓ Setup complete!</div>
-          </div>
-
-          <div style="margin-top:12px;background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--muted)">
-            <strong style="color:var(--green)">Note:</strong> When the browser opens you'll see <em>"Google hasn't verified this app"</em> — click <strong style="color:var(--text)">Advanced → Go to plaude (unsafe)</strong>. This is expected; you're authorising your own app.
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-content">
-          <h3>Connect Plaud to Google Drive</h3>
-          <p>This is how Plaude receives your transcripts. Follow these steps in the Plaud mobile app:</p>
-          <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-top:4px">
-            <ol style="font-size:13.5px;color:var(--muted);line-height:2;padding-left:18px">
-              <li>Open the <strong style="color:var(--text)">Plaud app</strong> on your phone</li>
-              <li>Tap your <strong style="color:var(--text)">profile icon</strong> or the <strong style="color:var(--text)">Settings</strong> gear (top corner of the home screen)</li>
-              <li>Find <strong style="color:var(--text)">Cloud Sync</strong>, <strong style="color:var(--text)">Backup</strong>, or <strong style="color:var(--text)">Integrations</strong></li>
-              <li>Tap <strong style="color:var(--text)">Google Drive</strong> and sign in with the same Google account you used during setup</li>
-              <li>Plaud will create a folder in your Drive — usually called <code style="font-family:monospace;font-size:12px;color:var(--text)">Plaud</code> or <code style="font-family:monospace;font-size:12px;color:var(--text)">PLAUD</code></li>
-              <li>Open <strong style="color:var(--text)">Google Drive</strong> on your computer and navigate to that folder</li>
-              <li>Copy the <strong style="color:var(--text)">folder ID</strong> from the URL bar:</li>
-            </ol>
-            <pre style="margin-top:10px;font-size:12px">https://drive.google.com/drive/folders/<span style="color:var(--green)">THIS_PART_IS_YOUR_FOLDER_ID</span></pre>
-            <p style="margin-top:12px;font-size:13px;color:var(--muted)">Paste this ID when <code style="font-family:monospace;font-size:12px;color:var(--text)">python3 setup.py</code> asks for your Drive folder. Plaude will watch this folder for new transcripts.</p>
-          </div>
-          <div style="margin-top:12px;background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:var(--radius);padding:14px 18px;font-size:13px;color:var(--muted)">
-            <strong style="color:var(--green)">Tip:</strong> Make sure sync is set to <strong style="color:var(--text)">automatic</strong> in the Plaud app so transcripts upload as soon as a recording finishes — no manual action needed.
-          </div>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="step-num">5</div>
-        <div class="step-content">
-          <h3>Start the bridge</h3>
-          <pre><span class="copy-btn" onclick="copy(this)">Copy</span><span class="prompt">$ </span>./start.sh</pre>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- ── How it works ── -->
   <section id="how">
     <h2>How it works</h2>
+    <p class="section-sub">Record on your Plaud device. Say a trigger phrase. Claude acts.</p>
     <div class="flow">
       <div class="flow-card">
         <div class="icon">🎙</div>
@@ -482,154 +278,166 @@
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-card">
-        <div class="icon">💬</div>
-        <strong>Say "send to claude"</strong>
-        <span>Trigger phrase detected automatically</span>
+        <div class="icon">☁️</div>
+        <strong>Syncs to Drive</strong>
+        <span>Transcript lands in your Google Drive folder</span>
       </div>
       <div class="flow-arrow">→</div>
       <div class="flow-card">
         <div class="icon">⚡️</div>
-        <strong>Claude takes over</strong>
-        <span>Via CLI or Cowork — your choice</span>
+        <strong>Claude acts</strong>
+        <span>Cowork picks it up and executes</span>
       </div>
     </div>
   </section>
 
-  <!-- ── Launchers ── -->
-  <section id="launchers">
-    <h2>Connect Claude Cowork</h2>
-    <p style="color:var(--muted);font-size:15px;margin-bottom:24px">Claude Cowork connects directly to your Plaud Drive folder via the native Google Drive connector. Every new transcript triggers Claude automatically — no terminal, no scripts.</p>
+  <!-- ── Setup ── -->
+  <section id="setup">
+    <h2>Setup</h2>
+    <p class="section-sub">Three steps. No installs, no code.</p>
+    <div class="steps">
 
-    <!-- Cowork setup -->
-    <div style="border:1px solid rgba(99,102,241,0.35);border-radius:var(--radius);overflow:hidden">
-      <div style="background:rgba(99,102,241,0.12);border-bottom:1px solid rgba(99,102,241,0.25);padding:16px 22px;display:flex;align-items:center;gap:10px">
-        <span style="font-size:18px">🤖</span>
-        <div>
-          <div style="font-weight:700;font-size:15px">Setting up Claude Cowork with Google Drive</div>
-          <div style="font-size:12.5px;color:var(--muted);margin-top:2px">Use the native Google Drive connector — no local inbox needed</div>
-        </div>
-      </div>
-      <div style="padding:22px;display:flex;flex-direction:column;gap:16px">
-
-        <!-- Step 1 -->
-        <div style="display:flex;gap:16px;align-items:flex-start">
-          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;color:#a5b4fc;font-weight:700">1</div>
-          <div>
-            <div style="font-weight:600;font-size:14px;margin-bottom:4px">Open the Claude desktop app and start a new Cowork session</div>
-            <div style="font-size:13px;color:var(--muted);line-height:1.6">In the Claude desktop app, click <strong style="color:var(--text)">Cowork</strong> in the sidebar and start a new session. Give it a name like <em>"Plaude automation"</em>.</div>
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Connect Plaud to Google Drive</h3>
+          <p>Open the Plaud app on your phone and enable Google Drive sync. Plaud will automatically upload transcripts to a folder in your Drive after each recording.</p>
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-num">1</div>
+              <div class="substep-body">Open the <strong>Plaud app</strong> → tap your profile or the settings gear</div>
+            </div>
+            <div class="substep">
+              <div class="substep-num">2</div>
+              <div class="substep-body">Find <strong>Cloud Sync</strong> or <strong>Backup</strong> → tap <strong>Google Drive</strong></div>
+            </div>
+            <div class="substep">
+              <div class="substep-num">3</div>
+              <div class="substep-body">Sign in with your Google account — Plaud creates a folder called <strong>PLAUD</strong> in your Drive</div>
+            </div>
+            <div class="substep">
+              <div class="substep-num">4</div>
+              <div class="substep-body">Set sync to <strong>Automatic</strong> so transcripts upload the moment a recording ends</div>
+            </div>
           </div>
-        </div>
-
-        <!-- Step 2 -->
-        <div style="display:flex;gap:16px;align-items:flex-start">
-          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;color:#a5b4fc;font-weight:700">2</div>
-          <div>
-            <div style="font-weight:600;font-size:14px;margin-bottom:4px">Add the Google Drive connector</div>
-            <div style="font-size:13px;color:var(--muted);line-height:1.6">
-              In the Cowork session, click <strong style="color:var(--text)">+ Add connector</strong> → choose <strong style="color:var(--text)">Google Drive</strong>.<br>
-              Sign in with the same Google account your Plaud syncs to.<br>
-              Select the <strong style="color:var(--text)">Plaud folder</strong> (the one whose ID you copied during setup).
+          <div class="tip">
+            <strong>Tip:</strong> Open Google Drive on your computer and find the PLAUD folder. Copy the folder ID from the URL — you'll need it in step 2.
+            <div class="url-example">
+              https://drive.google.com/drive/folders/<span class="hl">1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs</span>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- Step 3 -->
-        <div style="display:flex;gap:16px;align-items:flex-start">
-          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;color:#a5b4fc;font-weight:700">3</div>
-          <div>
-            <div style="font-weight:600;font-size:14px;margin-bottom:4px">Give Cowork its standing instructions</div>
-            <div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:10px">Paste this as the session's initial message — Cowork will follow it automatically every time a new transcript lands in the folder:</div>
-            <div style="position:relative">
-              <button onclick="copyCowork(this)" style="position:absolute;top:10px;right:10px;background:var(--surface);border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:3px 10px;font-size:11px;cursor:pointer;font-family:inherit">Copy</button>
-              <pre style="font-size:12.5px;line-height:1.75;white-space:pre-wrap" id="cowork-prompt">Watch my Google Drive Plaud folder for new files. Whenever a new transcript appears:
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Add Google Drive to Claude Cowork</h3>
+          <p>Open the Claude desktop app and start a new Cowork session. Then connect it to the Plaud folder in your Drive.</p>
+          <div class="substeps">
+            <div class="substep">
+              <div class="substep-num">1</div>
+              <div class="substep-body">Open <strong>Claude desktop app</strong> → click <strong>Cowork</strong> in the sidebar → start a new session</div>
+            </div>
+            <div class="substep">
+              <div class="substep-num">2</div>
+              <div class="substep-body">Click <strong>+ Add connector</strong> → select <strong>Google Drive</strong></div>
+            </div>
+            <div class="substep">
+              <div class="substep-num">3</div>
+              <div class="substep-body">Sign in with the same Google account your Plaud syncs to</div>
+            </div>
+            <div class="substep">
+              <div class="substep-num">4</div>
+              <div class="substep-body">Select the <strong>PLAUD folder</strong> — paste the folder ID from step 1 if asked</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Give Cowork its instructions</h3>
+          <p>Paste the prompt below as Cowork's first message. It tells Claude to watch the folder, detect trigger phrases, and act on them automatically — forever.</p>
+          <div class="prompt-box">
+            <div class="prompt-box-header">
+              <span class="prompt-box-label">Cowork prompt — paste this once</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">Copy</button>
+            </div>
+            <pre id="cowork-prompt">Watch my Google Drive Plaud folder for new files. Whenever a new transcript appears:
 
 1. Read the full transcript text
-2. Check if it contains a trigger phrase like "send to claude", "claude fix", "claude draft", "claude plan", or anything starting with "claude [verb]"
-3. If a trigger is found, identify the project being referred to from the transcript text
-4. Execute the instructions in the transcript fully and completely — write code, draft documents, do research, or whatever is asked
-5. When done, write a brief summary of everything you did
+2. Check if it contains a trigger phrase like "send to claude", "claude fix", "claude draft", "claude plan", "claude write", or anything starting with "claude [verb]"
+3. If a trigger is found, identify what needs to be done from the transcript and execute it fully — write code, draft documents, do research, send emails, make a plan, or whatever is asked
+4. When done, write a brief summary of everything you did
 
 If no trigger phrase is found, ignore the file.
 Stay running and repeat this for every new file that appears.</pre>
-            </div>
+          </div>
+          <div class="tip">
+            <strong>Done.</strong> Leave Cowork running in the background. Every time you finish a Plaud recording, the transcript syncs to Drive and Cowork picks it up within seconds — no further action needed.
           </div>
         </div>
-
-        <!-- Step 4 -->
-        <div style="display:flex;gap:16px;align-items:flex-start">
-          <div style="flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(99,102,241,0.2);border:1px solid rgba(99,102,241,0.4);display:flex;align-items:center;justify-content:center;font-size:12px;color:#a5b4fc;font-weight:700">4</div>
-          <div>
-            <div style="font-weight:600;font-size:14px;margin-bottom:4px">Leave Cowork running</div>
-            <div style="font-size:13px;color:var(--muted);line-height:1.6">
-              That's it. Cowork stays open in the background. Every time Plaud syncs a new transcript to Drive, Cowork picks it up, checks for a trigger, and acts — with no extra steps from you.<br><br>
-              <strong style="color:var(--text)">With this setup, you don't need to run <code style="font-family:monospace;font-size:12px">./start.sh</code> at all</strong> — Cowork handles everything end-to-end.
-            </div>
-          </div>
-        </div>
-
-        <div style="background:rgba(0,229,160,0.06);border:1px solid rgba(0,229,160,0.2);border-radius:8px;padding:14px 18px;font-size:13px;color:var(--muted)">
-          <strong style="color:var(--green)">Tip:</strong> Make sure Plaud's Google Drive sync is set to <strong style="color:var(--text)">automatic</strong> so transcripts upload the moment a recording ends — Cowork will pick them up within seconds.
-        </div>
-
       </div>
+
     </div>
   </section>
 
   <!-- ── Triggers ── -->
   <section id="triggers">
     <h2>Trigger phrases</h2>
-    <p style="color:var(--muted);font-size:14px;margin-bottom:18px">Say any of these in your recording. Works for code, writing, planning — anything Claude can do.</p>
+    <p class="section-sub">Say any of these in your recording. Works for code, writing, planning — anything Claude can do.</p>
     <div class="pill-grid">
       <span class="pill">send to claude</span>
       <span class="pill">send this to claude</span>
-      <span class="pill">claude should</span>
-      <span class="pill">claude handle</span>
       <span class="pill">claude fix</span>
       <span class="pill">claude draft</span>
-      <span class="pill">claude summarise</span>
+      <span class="pill">claude write</span>
       <span class="pill">claude plan</span>
-      <span class="pill">claude do this</span>
-      <span class="pill">want this to go to claude</span>
+      <span class="pill">claude research</span>
+      <span class="pill">claude summarise</span>
+      <span class="pill">claude handle</span>
       <span class="pill">go to claude</span>
       <span class="pill">for claude</span>
       <span class="pill catch">claude [anything] →</span>
     </div>
-    <p style="margin-top:14px;font-size:13px;color:var(--muted)">The <span style="background:rgba(0,229,160,0.15);color:var(--green);border-radius:100px;padding:2px 10px;font-size:12px">catch-all</span> matches any phrase starting with "claude" followed by a word — "claude write me an email", "claude make a plan", "claude research this".</p>
+    <p style="margin-top:14px;font-size:13px;color:var(--muted)">The <span style="background:rgba(0,229,160,0.12);color:var(--green);border-radius:100px;padding:2px 10px;font-size:12px">catch-all</span> matches any phrase starting with "claude" followed by a verb — "claude book me a restaurant", "claude make a plan for this", "claude write a cover letter".</p>
   </section>
 
-  <!-- ── Troubleshooting ── -->
+  <!-- ── FAQ ── -->
   <section id="troubleshoot">
     <h2>Troubleshooting</h2>
+    <p class="section-sub"></p>
 
     <details>
-      <summary>cloudflared not found</summary>
+      <summary>Cowork isn't picking up new transcripts</summary>
       <div class="faq-body">
-        macOS: <code>brew install cloudflare/cloudflare/cloudflared</code><br>
-        Windows: <code>winget install Cloudflare.cloudflared</code><br><br>
-        Then re-run <code>./start.sh</code>.
+        Make sure Plaud's sync is set to <strong>automatic</strong> in the app settings — not manual. Also verify the Google Drive connector in Cowork is pointing at the correct PLAUD folder. Try making a short test recording and checking if the file appears in Drive within a minute.
       </div>
     </details>
 
     <details>
-      <summary>Google auth failed</summary>
+      <summary>I don't see a Google Drive connector in Cowork</summary>
       <div class="faq-body">
-        Delete <code>token.json</code> and re-run <code>python setup.py</code>. Make sure you enabled the <strong>Google Drive API</strong> in Google Cloud Console and that your OAuth credentials are for a <strong>Desktop</strong> app, not a web app.
+        Make sure you're on the latest version of the Claude desktop app. The Google Drive connector is available in Cowork sessions via <strong>+ Add connector</strong>. If you don't see it, check for app updates or try restarting the app.
       </div>
     </details>
 
     <details>
-      <summary>Project directory not detected</summary>
+      <summary>Cowork acted on a recording I didn't intend to send</summary>
       <div class="faq-body">
-        Plaude scans the transcript for folder names that exist in your <code>projects_root</code>. If the project name isn't mentioned, try saying <em>"working in my-project"</em> or <em>"in the api-service repo"</em>.<br><br>
-        If nothing matches, a fallback file drops to <code>~/Desktop/plaude-unmatched/</code>.
+        Cowork only acts when a trigger phrase is detected. Make sure you're not accidentally saying "claude" in recordings you don't want forwarded. You can also edit the prompt in step 3 to use a more specific trigger phrase that's harder to say by accident.
       </div>
     </details>
 
     <details>
-      <summary>claude command not found</summary>
+      <summary>Plaud isn't syncing to Google Drive</summary>
       <div class="faq-body">
-        Install the CLI: <code>npm install -g @anthropic-ai/claude-code</code><br><br>
-        Verify with <code>which claude</code>. Or switch to the Cowork launcher in <code>config.json</code> to use the desktop app instead.
+        In the Plaud app, go to Settings → Cloud Sync → Google Drive and confirm the connection is active. If the folder isn't appearing in Drive, try disconnecting and reconnecting the Google account. Make sure auto-sync is enabled, not just manual backup.
       </div>
     </details>
 
@@ -646,28 +454,8 @@ Stay running and repeat this for every new file that appears.</pre>
 </footer>
 
 <script>
-function copyCmd(btn, text) {
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'Copied!';
-    setTimeout(() => btn.textContent = 'Copy', 1800);
-  });
-}
-
-function copyCowork(btn) {
+function copyPrompt(btn) {
   const text = document.getElementById('cowork-prompt').textContent.trim();
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = 'Copied!';
-    setTimeout(() => btn.textContent = 'Copy', 1800);
-  });
-}
-
-function copy(btn) {
-  const pre = btn.parentElement;
-  const text = [...pre.childNodes]
-    .filter(n => n.nodeType === 3 || (n.nodeType === 1 && !n.classList.contains('copy-btn') && !n.classList.contains('prompt')))
-    .map(n => n.textContent)
-    .join('')
-    .trim();
   navigator.clipboard.writeText(text).then(() => {
     btn.textContent = 'Copied!';
     setTimeout(() => btn.textContent = 'Copy', 1800);
